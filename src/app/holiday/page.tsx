@@ -41,7 +41,9 @@ export default function HolidayProgramPage() {
             } else {
                 throw new Error('Submission failed');
             }
-        } catch (error) {
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (e) {
             alert('There was an error submitting your form. Please try again or call us.');
         }
     };

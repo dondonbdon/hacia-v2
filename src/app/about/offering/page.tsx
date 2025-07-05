@@ -6,8 +6,18 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 
 const SubjectsPage = () => {
-	// Subject data structure
-	const levels = [
+
+	type Subject = {
+		name: string;
+		code?: string;
+	};
+
+	type Level = {
+		name: string;
+		description: string;
+		subjects: Subject[];
+	};
+	const levels:  Level[] = [
 		{
 			name: 'Checkpoint (Form 1 - Form 2)',
 			description:
@@ -182,9 +192,9 @@ const SubjectsPage = () => {
 									<h3 className='text-xl font-semibold text-slate-800 dark:text-slate-100 mb-1'>
 										{subject.name}
 									</h3>
-									{subject?.code && (
+									{subject.code && (
 										<p className='text-sm text-amber-600 dark:text-cyan-400 font-mono mb-2'>
-											Cambridge {subject?.code}
+											Cambridge {subject.code}
 										</p>
 									)}
 									<div className='h-1 w-12 bg-amber-400 dark:bg-cyan-400 my-2'></div>
