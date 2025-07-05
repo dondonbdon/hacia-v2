@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "https://dondonbdon.github.io/hacia-v2",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
     "export": "next export",
-    "deploy": "GITHUB_PAGES=true npm run build && npm run export",
+    "deploy": "GITHUB_PAGES=true npm run build && GITHUB_PAGES=true npm run export && gh-pages -d out",
+    "dev": "next dev",
     "predeploy": "npm run deploy",
     "gh-deploy": "gh-pages -d out"
   },
