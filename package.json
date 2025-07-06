@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "export": "next export",
+    "start": "next start",
     "deploy": "GITHUB_PAGES=true npm run build && gh-pages -d out",
     "dev": "next dev",
     "predeploy": "npm run deploy",
