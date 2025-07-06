@@ -27,7 +27,7 @@ export default function Footer() {
 
                 {/* Contact Button */}
                 <Link
-                    href="/contact"
+                    href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/contact`}
                     className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-500 dark:hover:bg-sky-600"
                 >
                     Contact Us
@@ -52,13 +52,13 @@ export default function Footer() {
                 {/* Navigation Links */}
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
                     <Link
-                        href="/about"
+                        href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/about`}
                         className="text-slate-700 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
                     >
                         ABOUT US
                     </Link>
                     <Link
-                        href="/login"
+                        href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/login`}
                         className="text-slate-700 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
                     >
                         LOGIN

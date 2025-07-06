@@ -57,9 +57,9 @@ export default function Navbar() {
 				}  text-white`}>
 				{/* Logo + Name */}
 				<div className='flex items-center gap-x-4'>
-					<Link href="/" className="flex items-center gap-x-2">
+					<Link href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/`} className="flex items-center gap-x-2">
 						<Image
-							src="/media/hac_logo.svg"
+							src={`${process.env.NEXT_PUBLIC_BASE_PATH}/media/hac_logo.svg`}
 							alt="HACIA Logo"
 							width={64}
 							height={64}
