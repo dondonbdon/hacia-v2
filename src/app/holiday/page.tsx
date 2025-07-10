@@ -52,7 +52,7 @@ export default function HolidayProgramPage() {
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <Navbar/>
             {/* Hero Section */}
-            <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden">
+            <section className="relative w-full h-[70vh] min-h-[500px] overflow-hidden">
                 <Image
                     src="/media/travel-tourism-team-2025.jpg"
                     alt="Students enjoying holiday program activities"
@@ -60,22 +60,22 @@ export default function HolidayProgramPage() {
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"/>
 
                 <div className="relative z-10 h-full flex flex-col justify-end pb-16 px-6 max-w-7xl mx-auto">
                     <motion.h1
                         className="text-4xl md:text-6xl font-bold text-white mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.6}}
                     >
-                        HAC Holiday School Program
+                        Cambridge I Believe I Can Succeed<br/>Revision & Remedial Camps
                     </motion.h1>
                     <motion.p
                         className="text-xl md:text-2xl text-white/90 max-w-3xl"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.6, delay: 0.1}}
                     >
                         August 15 - September 4, 2025 | Borrowdale, Harare
                     </motion.p>
@@ -91,66 +91,72 @@ export default function HolidayProgramPage() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                    >
-                        <div>
-                            <motion.h2
-                                className="text-3xl font-bold text-amber-600 dark:text-cyan-400 mb-6"
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5 }}
-                                viewport={{ once: true }}
-                            >
-                                Accelerated Learning During Holidays
-                            </motion.h2>
-                            <motion.div
-                                className="space-y-4 text-slate-700 dark:text-slate-300"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                transition={{ staggerChildren: 0.1, delay: 0.2 }}
-                                viewport={{ once: true }}
-                            >
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
+                        viewport={{ once: true }}>
+                        <div className="flex flex-col gap-x-4">
+                            <div>
+                                <motion.h2
+                                    className="text-3xl font-bold text-amber-600 dark:text-cyan-400 mb-6"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                    viewport={{ once: true }}
                                 >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>2-week intensive sessions</strong> -  2-week long session starting August 15</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
+                                    Accelerated Learning During Holidays
+                                </motion.h2>
+                                <motion.div
+                                    className="space-y-4 text-slate-700 dark:text-slate-300"
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ staggerChildren: 0.1, delay: 0.2 }}
+                                    viewport={{ once: true }}
                                 >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>All ages welcome</strong> - Primary School to High School (Grade 1 to A-Level)</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
-                                >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>All exam boards</strong> - Cambridge, ZIMSEC, and other curricula supported</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
-                                >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>Flexible pricing</strong> - $300 for internal students & $400 for external students </span>
-                                </motion.p>
-                            </motion.div>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>2-week intensive sessions</strong> -  2-week long session starting August 15</span>
+                                    </motion.p>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>All ages welcome</strong> - Primary School to High School (Grade 1 to A-Level)</span>
+                                    </motion.p>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>All exam boards</strong> - Cambridge, ZIMSEC, and other curricula supported</span>
+                                    </motion.p>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>Flexible pricing</strong> - $300 for internal students & $400 for external students </span>
+                                    </motion.p>
+                                </motion.div>
+                            </div>
+
+                            <Link className='bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-700 dark:hover:bg-sky-800 mt-10 w-75'
+                                href='/holiday/about'>
+                                Find out more about our camps
+                            </Link>
                         </div>
                         <motion.div
                             className="rounded-xl overflow-hidden shadow-xl"
@@ -312,7 +318,7 @@ export default function HolidayProgramPage() {
                                                     </div>
                                                     <div>
                                                         <label htmlFor={`studentGrade${student.id}`} className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                                                            Grade
+                                                            Level
                                                         </label>
                                                         <input
                                                             type="text"
@@ -375,7 +381,7 @@ export default function HolidayProgramPage() {
                                             className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
                                         >
                                             <option value="">Select a session</option>
-                                            <option value="Aug 12-23">August 12 - August 23</option>
+                                            <option value="Aug15-Sep4">August 15 - Sep 04</option>
                                         </select>
                                     </motion.div>
 
@@ -452,59 +458,6 @@ export default function HolidayProgramPage() {
                         </div>
                     </div>
                 </section>
-
-                {/* Testimonials */}
-                {/*<section className="mb-20">*/}
-                {/*    <motion.h2*/}
-                {/*        className="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-slate-100"*/}
-                {/*        initial={{ opacity: 0, y: 20 }}*/}
-                {/*        whileInView={{ opacity: 1, y: 0 }}*/}
-                {/*        transition={{ duration: 0.5 }}*/}
-                {/*        viewport={{ once: true }}*/}
-                {/*    >*/}
-                {/*        What Parents Say*/}
-                {/*    </motion.h2>*/}
-
-                {/*    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">*/}
-                {/*        {[*/}
-                {/*            {*/}
-                {/*                quote: "My daughter improved her math grade by 2 levels after just one holiday session. Worth every dollar!",*/}
-                {/*                author: "Mrs. Moyo, Highlands"*/}
-                {/*            },*/}
-                {/*            {*/}
-                {/*                quote: "The teachers really understand how to make difficult concepts simple for kids. Highly recommended.",*/}
-                {/*                author: "Mr. Chikanda, Borrowdale"*/}
-                {/*            },*/}
-                {/*            {*/}
-                {/*                quote: "Flexible scheduling and caring staff. My son actually looks forward to holiday school now!",*/}
-                {/*                author: "Dr. Ndlovu, Avondale"*/}
-                {/*            }*/}
-                {/*        ].map((testimonial, index) => (*/}
-                {/*            <motion.div*/}
-                {/*                key={index}*/}
-                {/*                className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700"*/}
-                {/*                initial={{ opacity: 0, y: 20 }}*/}
-                {/*                whileInView={{ opacity: 1, y: 0 }}*/}
-                {/*                transition={{ duration: 0.5, delay: index * 0.1 }}*/}
-                {/*                viewport={{ once: true }}*/}
-                {/*            >*/}
-                {/*                <div className="flex items-center text-amber-500 dark:text-cyan-400 mb-4">*/}
-                {/*                    {[...Array(5)].map((__, i) => (*/}
-                {/*                        <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">*/}
-                {/*                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />*/}
-                {/*                        </svg>*/}
-                {/*                    ))}*/}
-                {/*                </div>*/}
-                {/*                <p className="text-slate-700 dark:text-slate-300 italic mb-4">*/}
-                {/*                    "{testimonial.quote}"*/}
-                {/*                </p>*/}
-                {/*                <p className="text-slate-600 dark:text-slate-400 font-medium">*/}
-                {/*                    — {testimonial.author}*/}
-                {/*                </p>*/}
-                {/*            </motion.div>*/}
-                {/*        ))}*/}
-                {/*    </div>*/}
-                {/*</section>*/}
 
                 {/* Final CTA */}
                 <section className="bg-gradient-to-r from-amber-500 to-amber-600 dark:from-cyan-600 dark:to-cyan-700 rounded-xl p-8 md:p-12 text-white">
