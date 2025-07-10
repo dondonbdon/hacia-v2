@@ -5,7 +5,8 @@ import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className="w-full px-6 md:px-20 py-20 mt-16 font-inria bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+        <footer
+            className="w-full px-6 md:px-20 py-20 mt-16 font-inria bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
             {/* Top Section */}
             <div className="max-w-screen-xl mx-auto flex flex-col items-center text-center gap-6">
                 {/* Tagline */}
@@ -34,10 +35,11 @@ export default function Footer() {
                 </Link>
             </div>
 
-            <hr className="my-16 border-slate-200 dark:border-slate-800" />
+            <hr className="my-16 border-slate-200 dark:border-slate-800"/>
 
             {/* Bottom Section */}
-            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 items-center text-center text-sm md:text-base">
+            <div
+                className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 items-center text-center text-sm md:text-base">
                 {/* Logo */}
                 <div className="flex justify-center">
                     <Image
