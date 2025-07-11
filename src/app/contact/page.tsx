@@ -22,7 +22,7 @@ export default function Page() {
 		name: '',
 		email: '',
 		phone: '',
-		contents: '',
+		body: '',
 	});
 
 	// Simple validation
@@ -31,7 +31,7 @@ export default function Page() {
 	const isFormValid =
 		formData.name.trim() !== '' &&
 		isValidEmail(formData.email) &&
-		formData.contents.trim() !== '';
+		formData.body.trim() !== '';
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -58,8 +58,8 @@ export default function Page() {
                 body: JSON.stringify(formData),
             });
 
+
             if (!response.ok) {
-                console.error(response)
                 throw new Error('Failed to submit');
             }
 
@@ -302,18 +302,18 @@ export default function Page() {
                                             YOUR MESSAGE
                                         </h3>
                                         <textarea
-                                            id='contents'
-                                            name='contents'
+                                            id='body'
+                                            name='body'
                                             rows={8}
-                                            value={formData.contents}
+                                            value={formData.body}
                                             onChange={handleChange}
                                             className={`w-full border ${
-                                                formData.contents.trim() === '' && submissionState !== 'initial'
+                                                formData.body.trim() === '' && submissionState !== 'initial'
                                                     ? 'border-red-500 dark:border-red-400'
                                                     : 'dark:border-slate-700'
                                             } rounded-md p-3 bg-white dark:bg-slate-900 font-normal focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent`}
                                         />
-                                        {formData.contents.trim() === '' && submissionState !== 'initial' && (
+                                        {formData.body.trim() === '' && submissionState !== 'initial' && (
                                             <div className='text-red-500 dark:text-red-400 text-sm mt-1'>
                                                 Message body is required
                                             </div>

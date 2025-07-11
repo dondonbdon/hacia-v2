@@ -51,8 +51,6 @@ export default function HolidayProgramPage() {
         };
 
         try {
-            console.log('Payload sent to backend:', JSON.stringify(payload, null, 2));
-
             const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/holiday-students', {
                 method: 'POST',
                 headers: {
