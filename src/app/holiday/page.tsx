@@ -11,6 +11,9 @@ import {FaWhatsapp} from "react-icons/fa";
 
 export default function HolidayProgramPage() {
     const [students, setStudents] = useState([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
+    type SubmissionState = 'initial' | 'submitting' | 'submitted' | 'error';
+    const [submissionState, setSubmissionState] = useState<SubmissionState>('initial');
+    const [error, setError] = useState<string | null>(null);
 
     const handleAddStudent = () => {
         setStudents((prev) => [
@@ -28,29 +31,33 @@ export default function HolidayProgramPage() {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        const studentsData = students.map((student) => {
-            const name = formData.get(`studentName${student.id}`) as string;
-            const ageStr = formData.get(`studentAge${student.id}`) as string;
-            const grade = formData.get(`studentGrade${student.id}`) as string;
-            const type = formData.get(`studentType${student.id}`) as string;
-
-            return {
-                name,
-                age: parseInt(ageStr, 10),
-                level: grade,
-                type: type?.toUpperCase(),
-            };
-        });
-
-        const payload = {
-            name: formData.get('parentName'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            students: studentsData,
-            session: formData.get('session'),
-        };
+        if (submissionState === 'submitting') return;
+        setSubmissionState('submitting');
+        setError(null);
 
         try {
+            const studentsData = students.map((student) => {
+                const name = formData.get(`studentName${student.id}`) as string;
+                const ageStr = formData.get(`studentAge${student.id}`) as string;
+                const grade = formData.get(`studentGrade${student.id}`) as string;
+                const type = formData.get(`studentType${student.id}`) as string;
+
+                return {
+                    name,
+                    age: parseInt(ageStr, 10),
+                    level: grade,
+                    type: type?.toUpperCase(),
+                };
+            });
+
+            const payload = {
+                name: formData.get('parentName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                students: studentsData,
+                session: formData.get('session'),
+            };
+
             const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/holiday-students', {
                 method: 'POST',
                 headers: {
@@ -61,19 +68,23 @@ export default function HolidayProgramPage() {
                 body: JSON.stringify(payload),
             });
 
-            if (response.ok) {
-                alert('Registration submitted successfully! We will contact you shortly.');
-                form.reset();
-                setStudents([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
-            } else {
+            if (!response.ok) {
                 throw new Error('Submission failed');
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-            alert('There was an error submitting your form. Please try again or call us.');
+
+            setSubmissionState('submitted');
+            form.reset();
+            setStudents([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
+
+        } catch (err: unknown) {
+            setSubmissionState('error');
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unknown error occurred. Please try again.');
+            }
         }
     };
-
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -172,7 +183,7 @@ export default function HolidayProgramPage() {
                             </div>
 
                             <Link className='bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-700 dark:hover:bg-sky-800 mt-10 w-75'
-                                href='/holiday/about'>
+                                  href='/holiday/about'>
                                 Find out more about our camps
                             </Link>
                         </div>
@@ -184,7 +195,7 @@ export default function HolidayProgramPage() {
                             viewport={{ once: true }}
                         >
                             <Image
-                                src="/media/students_dr.jpg"
+                                src="/media/first-block.jpg"
                                 alt="Students learning in classroom"
                                 width={800}
                                 height={600}
@@ -207,8 +218,28 @@ export default function HolidayProgramPage() {
                                     transition={{ duration: 0.5 }}
                                     viewport={{ once: true }}
                                 >
-
+                                    Register for Holiday Program
                                 </motion.h2>
+
+                                {/* Submission status message */}
+                                <div className={`mb-6 p-4 rounded-lg ${
+                                    submissionState === 'submitting'
+                                        ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200'
+                                        : submissionState === 'submitted'
+                                            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                                            : submissionState === 'error'
+                                                ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                                                : 'hidden'
+                                }`}>
+                                    {submissionState === 'error'
+                                        ? error || 'Failed to submit. Please try again.'
+                                        : submissionState === 'submitting'
+                                            ? 'Submitting your registration...'
+                                            : submissionState === 'submitted'
+                                                ? 'Registration submitted successfully! We will contact you shortly.'
+                                                : ''}
+                                </div>
+
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
@@ -224,7 +255,8 @@ export default function HolidayProgramPage() {
                                             id="parentName"
                                             name="parentName"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -242,7 +274,8 @@ export default function HolidayProgramPage() {
                                             id="email"
                                             name="email"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -260,7 +293,8 @@ export default function HolidayProgramPage() {
                                             id="phone"
                                             name="phone"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -278,19 +312,18 @@ export default function HolidayProgramPage() {
                                             </h3>
                                             <button
                                                 type="button"
-                                                onClick={() =>
-                                                    handleAddStudent()
-                                                }
-                                                className="text-sm text-amber-600 dark:text-cyan-500 hover:underline"
+                                                onClick={handleAddStudent}
+                                                disabled={submissionState === 'submitting'}
+                                                className="text-sm text-amber-600 dark:text-cyan-500 hover:underline disabled:opacity-50"
                                             >
                                                 + Add Another Student
                                             </button>
                                         </div>
 
                                         {/* Student 1 */}
-                                        {students.map((student, index) => (
+                                        {students.map((student) => (
                                             <div
-                                                key={index}
+                                                key={student.id}
                                                 className="bg-slate-100 dark:bg-slate-800 rounded-lg space-y-4 relative"
                                             >
                                                 {/* Remove Button */}
@@ -298,7 +331,8 @@ export default function HolidayProgramPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => handleRemoveStudent(student.id)}
-                                                        className="absolute  right-2 text-sm  text-red-500 hover:underline"
+                                                        disabled={submissionState === 'submitting'}
+                                                        className="absolute top-2 right-2 text-sm text-red-500 hover:underline disabled:opacity-50"
                                                     >
                                                         Remove
                                                     </button>
@@ -314,7 +348,8 @@ export default function HolidayProgramPage() {
                                                         id={`studentName${student.id}`}
                                                         name={`studentName${student.id}`}
                                                         required
-                                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                                        disabled={submissionState === 'submitting'}
+                                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                                     />
                                                 </div>
 
@@ -331,7 +366,8 @@ export default function HolidayProgramPage() {
                                                             required
                                                             min="5"
                                                             max="18"
-                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                                            disabled={submissionState === 'submitting'}
+                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                                         />
                                                     </div>
                                                     <div>
@@ -342,7 +378,8 @@ export default function HolidayProgramPage() {
                                                             id={`studentGrade${student.id}`}
                                                             name={`studentGrade${student.id}`}
                                                             required
-                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                                            disabled={submissionState === 'submitting'}
+                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                                         >
                                                             <option value="">Select a level</option>
                                                             <option value="G1">Grade 1</option>
@@ -374,7 +411,8 @@ export default function HolidayProgramPage() {
                                                                 name={`studentType${student.id}`}
                                                                 value="internal"
                                                                 required
-                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400"
+                                                                disabled={submissionState === 'submitting'}
+                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400 disabled:opacity-70"
                                                             />
                                                             <span className="ml-2">Internal Student</span>
                                                         </label>
@@ -383,7 +421,8 @@ export default function HolidayProgramPage() {
                                                                 type="radio"
                                                                 name={`studentType${student.id}`}
                                                                 value="external"
-                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400"
+                                                                disabled={submissionState === 'submitting'}
+                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400 disabled:opacity-70"
                                                             />
                                                             <span className="ml-2">External Student</span>
                                                         </label>
@@ -392,9 +431,6 @@ export default function HolidayProgramPage() {
                                             </div>
                                         ))}
 
-
-
-                                        {/* Additional students would be added here dynamically */}
                                     </motion.div>
 
                                     <motion.div
@@ -410,7 +446,8 @@ export default function HolidayProgramPage() {
                                             id="session"
                                             name="session"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         >
                                             <option value="">Select a session</option>
                                             <option value="August-Holiday">August 15 - August 30</option>
@@ -425,9 +462,14 @@ export default function HolidayProgramPage() {
                                     >
                                         <button
                                             type="submit"
-                                            className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 dark:bg-cyan-600 dark:hover:bg-cyan-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className={`w-full text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 ${
+                                                submissionState === 'submitting'
+                                                    ? 'bg-amber-700 dark:bg-cyan-700 cursor-not-allowed'
+                                                    : 'bg-amber-600 hover:bg-amber-700 dark:bg-cyan-600 dark:hover:bg-cyan-700'
+                                            }`}
                                         >
-                                            Register Now
+                                            {submissionState === 'submitting' ? 'Submitting...' : 'Register Now'}
                                         </button>
                                     </motion.div>
                                 </form>
@@ -530,7 +572,7 @@ export default function HolidayProgramPage() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                                    <FaWhatsapp className="w-5 h-5" />
+                                <FaWhatsapp className="w-5 h-5" />
                                 Chat on WhatsApp
                             </a>
 
