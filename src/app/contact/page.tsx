@@ -52,7 +52,9 @@ export default function Page() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify(formData),
             });
 
