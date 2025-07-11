@@ -14,15 +14,15 @@ import Image from "next/image";
 
 export default function Page() {
 
-	const [submissionState, setSubmissionState] = useState<
-		'initial' | 'submitting' | 'submitted'
-	>('initial');
+    type SubmissionState = 'initial' | 'submitting' | 'submitted' | 'error';
+    const [submissionState, setSubmissionState] = useState<SubmissionState>('initial');
+    const [error, setError] = useState<string | null>(null);
+
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
-		title: '',
 		phone: '',
-		contents: '',
+		body: '',
 	});
 
 	// Simple validation
@@ -31,8 +31,7 @@ export default function Page() {
 	const isFormValid =
 		formData.name.trim() !== '' &&
 		isValidEmail(formData.email) &&
-		formData.title.trim() !== '' &&
-		formData.contents.trim() !== '';
+		formData.body.trim() !== '';
 
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,20 +42,42 @@ export default function Page() {
 		}));
 	};
 
-	const onSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!isFormValid || submissionState === 'submitting') return;
-		setSubmissionState('submitting');
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!isFormValid || submissionState === 'submitting') return;
+        setSubmissionState('submitting');
 
-		// Simulate async submit
-		setTimeout(() => {
-			setSubmissionState('submitted');
-			// Optionally reset form here:
-			// setFormData({name:'', email:'', title:'', phone:'', contents:''});
-		}, 2000);
-	};
+        try {
+            const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(formData),
+            });
 
-	return (
+
+            if (!response.ok) {
+                throw new Error('Failed to submit');
+            }
+
+            setSubmissionState('submitted');
+
+        }catch (err: unknown) {
+            setSubmissionState('error');
+
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unknown error occurred.');
+            }
+        }
+    };
+
+
+    return (
 		<div>
 			<Navbar />
 			<main>
@@ -197,18 +218,25 @@ export default function Page() {
 
                                     {/* Submission message */}
                                     <p className={`text-lg pt-2 pb-6 ${
-                                        submissionState === 'submitting' ? 'text-amber-600 dark:text-cyan-400' :
-                                            submissionState === 'submitted' ? 'text-green-600 dark:text-green-400' :
-                                                'text-gray-500'
+                                        submissionState === 'submitting'
+                                            ? 'text-amber-600 dark:text-cyan-400'
+                                            : submissionState === 'submitted'
+                                                ? 'text-green-600 dark:text-green-400'
+                                                : submissionState === 'error'
+                                                    ? 'text-red-600 dark:text-red-400'
+                                                    : 'text-gray-500'
                                     }`}>
                                         {
-                                            {
-                                                initial: '',
-                                                submitting: 'Submitting your message, please wait...',
-                                                submitted: 'Your message has been submitted successfully!',
-                                            }[submissionState]
+                                            submissionState === 'error'
+                                                ? error || 'Something went wrong. Please try again.'
+                                                : {
+                                                    initial: '',
+                                                    submitting: 'Submitting your message, please wait...',
+                                                    submitted: 'Your message has been submitted successfully!',
+                                                }[submissionState]
                                         }
                                     </p>
+
 
                                     {/* Name and Phone */}
                                     <div className='flex lg:flex-row flex-col mb-4 w-full gap-4'>
@@ -274,18 +302,18 @@ export default function Page() {
                                             YOUR MESSAGE
                                         </h3>
                                         <textarea
-                                            id='contents'
-                                            name='contents'
+                                            id='body'
+                                            name='body'
                                             rows={8}
-                                            value={formData.contents}
+                                            value={formData.body}
                                             onChange={handleChange}
                                             className={`w-full border ${
-                                                formData.contents.trim() === '' && submissionState !== 'initial'
+                                                formData.body.trim() === '' && submissionState !== 'initial'
                                                     ? 'border-red-500 dark:border-red-400'
                                                     : 'dark:border-slate-700'
                                             } rounded-md p-3 bg-white dark:bg-slate-900 font-normal focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent`}
                                         />
-                                        {formData.contents.trim() === '' && submissionState !== 'initial' && (
+                                        {formData.body.trim() === '' && submissionState !== 'initial' && (
                                             <div className='text-red-500 dark:text-red-400 text-sm mt-1'>
                                                 Message body is required
                                             </div>

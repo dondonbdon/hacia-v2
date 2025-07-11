@@ -7,9 +7,13 @@ import Link from 'next/link';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { v4 as uuidv4 } from 'uuid';
+import {FaWhatsapp} from "react-icons/fa";
 
 export default function HolidayProgramPage() {
     const [students, setStudents] = useState([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
+    type SubmissionState = 'initial' | 'submitting' | 'submitted' | 'error';
+    const [submissionState, setSubmissionState] = useState<SubmissionState>('initial');
+    const [error, setError] = useState<string | null>(null);
 
     const handleAddStudent = () => {
         setStudents((prev) => [
@@ -24,27 +28,61 @@ export default function HolidayProgramPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target as HTMLFormElement);
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        if (submissionState === 'submitting') return;
+        setSubmissionState('submitting');
+        setError(null);
 
         try {
-            const response = await fetch('/api/holiday-signup', {
-                method: 'POST',
-                body: JSON.stringify(Object.fromEntries(formData)),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            const studentsData = students.map((student) => {
+                const name = formData.get(`studentName${student.id}`) as string;
+                const ageStr = formData.get(`studentAge${student.id}`) as string;
+                const grade = formData.get(`studentGrade${student.id}`) as string;
+                const type = formData.get(`studentType${student.id}`) as string;
+
+                return {
+                    name,
+                    age: parseInt(ageStr, 10),
+                    level: grade,
+                    type: type?.toUpperCase(),
+                };
             });
 
-            if (response.ok) {
-                alert('Registration submitted successfully! We will contact you shortly.');
-                (e.target as HTMLFormElement).reset();
-            } else {
+            const payload = {
+                name: formData.get('parentName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                students: studentsData,
+                session: formData.get('session'),
+            };
+
+            const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/holiday-students', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
                 throw new Error('Submission failed');
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {
-            alert('There was an error submitting your form. Please try again or call us.');
+            setSubmissionState('submitted');
+            form.reset();
+            setStudents([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
+
+        } catch (err: unknown) {
+            setSubmissionState('error');
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unknown error occurred. Please try again.');
+            }
         }
     };
 
@@ -52,7 +90,7 @@ export default function HolidayProgramPage() {
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
             <Navbar/>
             {/* Hero Section */}
-            <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden">
+            <section className="relative w-full h-[70vh] min-h-[500px] overflow-hidden">
                 <Image
                     src="/media/travel-tourism-team-2025.jpg"
                     alt="Students enjoying holiday program activities"
@@ -60,24 +98,24 @@ export default function HolidayProgramPage() {
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"/>
 
                 <div className="relative z-10 h-full flex flex-col justify-end pb-16 px-6 max-w-7xl mx-auto">
                     <motion.h1
                         className="text-4xl md:text-6xl font-bold text-white mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.6}}
                     >
-                        HAC Holiday School Program
+                        Cambridge I Believe I Can Succeed<br/>Revision & Remedial Camps
                     </motion.h1>
                     <motion.p
                         className="text-xl md:text-2xl text-white/90 max-w-3xl"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        initial={{opacity: 0, y: 20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.6, delay: 0.1}}
                     >
-                        August 15 - September 4, 2025 | Borrowdale, Harare
+                        August 15 - August 30, 2025 | Borrowdale, Harare
                     </motion.p>
                 </div>
             </section>
@@ -91,66 +129,63 @@ export default function HolidayProgramPage() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                    >
-                        <div>
-                            <motion.h2
-                                className="text-3xl font-bold text-amber-600 dark:text-cyan-400 mb-6"
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5 }}
-                                viewport={{ once: true }}
-                            >
-                                Accelerated Learning During Holidays
-                            </motion.h2>
-                            <motion.div
-                                className="space-y-4 text-slate-700 dark:text-slate-300"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                transition={{ staggerChildren: 0.1, delay: 0.2 }}
-                                viewport={{ once: true }}
-                            >
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
+                        viewport={{ once: true }}>
+                        <div className="flex flex-col gap-x-4">
+                            <div>
+                                <motion.h2
+                                    className="text-3xl font-bold text-amber-600 dark:text-cyan-400 mb-6"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                    viewport={{ once: true }}
                                 >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>2-week intensive sessions</strong> -  2-week long session starting August 15</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
+                                    Accelerated Learning During Holidays
+                                </motion.h2>
+                                <motion.div
+                                    className="space-y-4 text-slate-700 dark:text-slate-300"
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ staggerChildren: 0.1, delay: 0.2 }}
+                                    viewport={{ once: true }}
                                 >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>All ages welcome</strong> - Primary School to High School (Grade 1 to A-Level)</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
-                                >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>All exam boards</strong> - Cambridge, ZIMSEC, and other curricula supported</span>
-                                </motion.p>
-                                <motion.p
-                                    className="flex items-start gap-3"
-                                    variants={{
-                                        hidden: { opacity: 0, y: 10 },
-                                        visible: { opacity: 1, y: 0 }
-                                    }}
-                                >
-                                    <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                    <span><strong>Flexible pricing</strong> - $300 for internal students & $400 for external students </span>
-                                </motion.p>
-                            </motion.div>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>2-week intensive sessions</strong> -  2-week long session starting August 15</span>
+                                    </motion.p>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>All ages welcome</strong> - Primary School to High School (Grade 1 to A-Level)</span>
+                                    </motion.p>
+                                    <motion.p
+                                        className="flex items-start gap-3"
+                                        variants={{
+                                            hidden: { opacity: 0, y: 10 },
+                                            visible: { opacity: 1, y: 0 }
+                                        }}
+                                    >
+                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
+                                        <span><strong>All exam boards</strong> - Cambridge, ZIMSEC, and other curricula supported</span>
+                                    </motion.p>
+
+                                </motion.div>
+                            </div>
+
+                            <Link className='bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-700 dark:hover:bg-sky-800 mt-10 w-75'
+                                  href='/holiday/about'>
+                                Find out more about our camps
+                            </Link>
                         </div>
                         <motion.div
                             className="rounded-xl overflow-hidden shadow-xl"
@@ -160,7 +195,7 @@ export default function HolidayProgramPage() {
                             viewport={{ once: true }}
                         >
                             <Image
-                                src="/media/students_dr.jpg"
+                                src="/media/first-block.jpg"
                                 alt="Students learning in classroom"
                                 width={800}
                                 height={600}
@@ -183,8 +218,28 @@ export default function HolidayProgramPage() {
                                     transition={{ duration: 0.5 }}
                                     viewport={{ once: true }}
                                 >
-
+                                    Register for Holiday Program
                                 </motion.h2>
+
+                                {/* Submission status message */}
+                                <div className={`mb-6 p-4 rounded-lg ${
+                                    submissionState === 'submitting'
+                                        ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200'
+                                        : submissionState === 'submitted'
+                                            ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                                            : submissionState === 'error'
+                                                ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                                                : 'hidden'
+                                }`}>
+                                    {submissionState === 'error'
+                                        ? error || 'Failed to submit. Please try again.'
+                                        : submissionState === 'submitting'
+                                            ? 'Submitting your registration...'
+                                            : submissionState === 'submitted'
+                                                ? 'Registration submitted successfully! We will contact you shortly.'
+                                                : ''}
+                                </div>
+
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <motion.div
                                         initial={{ opacity: 0, y: 10 }}
@@ -200,7 +255,8 @@ export default function HolidayProgramPage() {
                                             id="parentName"
                                             name="parentName"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -218,7 +274,8 @@ export default function HolidayProgramPage() {
                                             id="email"
                                             name="email"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -236,7 +293,8 @@ export default function HolidayProgramPage() {
                                             id="phone"
                                             name="phone"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         />
                                     </motion.div>
 
@@ -254,19 +312,18 @@ export default function HolidayProgramPage() {
                                             </h3>
                                             <button
                                                 type="button"
-                                                onClick={() =>
-                                                    handleAddStudent()
-                                                }
-                                                className="text-sm text-amber-600 dark:text-cyan-500 hover:underline"
+                                                onClick={handleAddStudent}
+                                                disabled={submissionState === 'submitting'}
+                                                className="text-sm text-amber-600 dark:text-cyan-500 hover:underline disabled:opacity-50"
                                             >
                                                 + Add Another Student
                                             </button>
                                         </div>
 
                                         {/* Student 1 */}
-                                        {students.map((student, index) => (
+                                        {students.map((student) => (
                                             <div
-                                                key={index}
+                                                key={student.id}
                                                 className="bg-slate-100 dark:bg-slate-800 rounded-lg space-y-4 relative"
                                             >
                                                 {/* Remove Button */}
@@ -274,7 +331,8 @@ export default function HolidayProgramPage() {
                                                     <button
                                                         type="button"
                                                         onClick={() => handleRemoveStudent(student.id)}
-                                                        className="absolute  right-2 text-sm  text-red-500 hover:underline"
+                                                        disabled={submissionState === 'submitting'}
+                                                        className="absolute top-2 right-2 text-sm text-red-500 hover:underline disabled:opacity-50"
                                                     >
                                                         Remove
                                                     </button>
@@ -290,7 +348,8 @@ export default function HolidayProgramPage() {
                                                         id={`studentName${student.id}`}
                                                         name={`studentName${student.id}`}
                                                         required
-                                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                                        disabled={submissionState === 'submitting'}
+                                                        className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                                     />
                                                 </div>
 
@@ -307,20 +366,36 @@ export default function HolidayProgramPage() {
                                                             required
                                                             min="5"
                                                             max="18"
-                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                                            disabled={submissionState === 'submitting'}
+                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                                         />
                                                     </div>
                                                     <div>
                                                         <label htmlFor={`studentGrade${student.id}`} className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                                                            Grade
+                                                            Level
                                                         </label>
-                                                        <input
-                                                            type="text"
+                                                        <select
                                                             id={`studentGrade${student.id}`}
                                                             name={`studentGrade${student.id}`}
                                                             required
-                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
-                                                        />
+                                                            disabled={submissionState === 'submitting'}
+                                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
+                                                        >
+                                                            <option value="">Select a level</option>
+                                                            <option value="G1">Grade 1</option>
+                                                            <option value="G2">Grade 2</option>
+                                                            <option value="G3">Grade 3</option>
+                                                            <option value="G4">Grade 4</option>
+                                                            <option value="G5">Grade 5</option>
+                                                            <option value="G6">Grade 6</option>
+                                                            <option value="G7">Grade 7</option>
+                                                            <option value="F1">Form 1</option>
+                                                            <option value="F1">Form 2</option>
+                                                            <option value="F3">Form 3</option>
+                                                            <option value="F4">Form 4</option>
+                                                            <option value="L6">Lower 6</option>
+                                                            <option value="U6">Upper 6</option>
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -336,7 +411,8 @@ export default function HolidayProgramPage() {
                                                                 name={`studentType${student.id}`}
                                                                 value="internal"
                                                                 required
-                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400"
+                                                                disabled={submissionState === 'submitting'}
+                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400 disabled:opacity-70"
                                                             />
                                                             <span className="ml-2">Internal Student</span>
                                                         </label>
@@ -345,7 +421,8 @@ export default function HolidayProgramPage() {
                                                                 type="radio"
                                                                 name={`studentType${student.id}`}
                                                                 value="external"
-                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400"
+                                                                disabled={submissionState === 'submitting'}
+                                                                className="text-amber-600 dark:text-cyan-500 focus:ring-amber-500 dark:focus:ring-cyan-400 disabled:opacity-70"
                                                             />
                                                             <span className="ml-2">External Student</span>
                                                         </label>
@@ -354,9 +431,6 @@ export default function HolidayProgramPage() {
                                             </div>
                                         ))}
 
-
-
-                                        {/* Additional students would be added here dynamically */}
                                     </motion.div>
 
                                     <motion.div
@@ -372,10 +446,11 @@ export default function HolidayProgramPage() {
                                             id="session"
                                             name="session"
                                             required
-                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700 disabled:opacity-70"
                                         >
                                             <option value="">Select a session</option>
-                                            <option value="Aug 12-23">August 12 - August 23</option>
+                                            <option value="August-Holiday">August 15 - August 30</option>
                                         </select>
                                     </motion.div>
 
@@ -387,9 +462,14 @@ export default function HolidayProgramPage() {
                                     >
                                         <button
                                             type="submit"
-                                            className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 dark:bg-cyan-600 dark:hover:bg-cyan-700"
+                                            disabled={submissionState === 'submitting'}
+                                            className={`w-full text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 ${
+                                                submissionState === 'submitting'
+                                                    ? 'bg-amber-700 dark:bg-cyan-700 cursor-not-allowed'
+                                                    : 'bg-amber-600 hover:bg-amber-700 dark:bg-cyan-600 dark:hover:bg-cyan-700'
+                                            }`}
                                         >
-                                            Register Now
+                                            {submissionState === 'submitting' ? 'Submitting...' : 'Register Now'}
                                         </button>
                                     </motion.div>
                                 </form>
@@ -428,6 +508,10 @@ export default function HolidayProgramPage() {
                                             <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
                                             <span><strong>Uniform:</strong> Casual, respectful clothing</span>
                                         </li>
+                                        <li className="flex items-start gap-3">
+                                            <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
+                                            <span><strong>Transport Available:</strong> City Centre, Marlborough, Mt Pleasant, Westgate, Civvies Centre</span>
+                                        </li>
                                     </ul>
 
                                     <div className="pt-4 border-t border-amber-200 dark:border-cyan-800">
@@ -435,7 +519,7 @@ export default function HolidayProgramPage() {
                                             Need Help?
                                         </h4>
                                         <p className="text-slate-600 dark:text-slate-400 mb-4">
-                                            Call us at <a href="tel:+263242882304" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 242 882 304</a> or visit our <Link href="/contact" className="text-amber-600 dark:text-cyan-400 hover:underline">contact page</Link> for more information.
+                                            Call/Whatsapp us at <a href="tel:+263242882304" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 242 882 304</a> / <a href="tel:+263774717308" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 774 717 308</a> or visit our <Link href="/contact" className="text-amber-600 dark:text-cyan-400 hover:underline">contact page</Link> for more information.
                                         </p>
                                         <Link
                                             href="/contact/#map"
@@ -452,59 +536,6 @@ export default function HolidayProgramPage() {
                         </div>
                     </div>
                 </section>
-
-                {/* Testimonials */}
-                {/*<section className="mb-20">*/}
-                {/*    <motion.h2*/}
-                {/*        className="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-slate-100"*/}
-                {/*        initial={{ opacity: 0, y: 20 }}*/}
-                {/*        whileInView={{ opacity: 1, y: 0 }}*/}
-                {/*        transition={{ duration: 0.5 }}*/}
-                {/*        viewport={{ once: true }}*/}
-                {/*    >*/}
-                {/*        What Parents Say*/}
-                {/*    </motion.h2>*/}
-
-                {/*    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">*/}
-                {/*        {[*/}
-                {/*            {*/}
-                {/*                quote: "My daughter improved her math grade by 2 levels after just one holiday session. Worth every dollar!",*/}
-                {/*                author: "Mrs. Moyo, Highlands"*/}
-                {/*            },*/}
-                {/*            {*/}
-                {/*                quote: "The teachers really understand how to make difficult concepts simple for kids. Highly recommended.",*/}
-                {/*                author: "Mr. Chikanda, Borrowdale"*/}
-                {/*            },*/}
-                {/*            {*/}
-                {/*                quote: "Flexible scheduling and caring staff. My son actually looks forward to holiday school now!",*/}
-                {/*                author: "Dr. Ndlovu, Avondale"*/}
-                {/*            }*/}
-                {/*        ].map((testimonial, index) => (*/}
-                {/*            <motion.div*/}
-                {/*                key={index}*/}
-                {/*                className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md border border-slate-200 dark:border-slate-700"*/}
-                {/*                initial={{ opacity: 0, y: 20 }}*/}
-                {/*                whileInView={{ opacity: 1, y: 0 }}*/}
-                {/*                transition={{ duration: 0.5, delay: index * 0.1 }}*/}
-                {/*                viewport={{ once: true }}*/}
-                {/*            >*/}
-                {/*                <div className="flex items-center text-amber-500 dark:text-cyan-400 mb-4">*/}
-                {/*                    {[...Array(5)].map((__, i) => (*/}
-                {/*                        <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">*/}
-                {/*                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />*/}
-                {/*                        </svg>*/}
-                {/*                    ))}*/}
-                {/*                </div>*/}
-                {/*                <p className="text-slate-700 dark:text-slate-300 italic mb-4">*/}
-                {/*                    "{testimonial.quote}"*/}
-                {/*                </p>*/}
-                {/*                <p className="text-slate-600 dark:text-slate-400 font-medium">*/}
-                {/*                    — {testimonial.author}*/}
-                {/*                </p>*/}
-                {/*            </motion.div>*/}
-                {/*        ))}*/}
-                {/*    </div>*/}
-                {/*</section>*/}
 
                 {/* Final CTA */}
                 <section className="bg-gradient-to-r from-amber-500 to-amber-600 dark:from-cyan-600 dark:to-cyan-700 rounded-xl p-8 md:p-12 text-white">
@@ -529,11 +560,22 @@ export default function HolidayProgramPage() {
                                 Register Now
                             </Link>
                             <a
-                                href="tel:+263242882304"
-                                className="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors"
-                            >
-                                Call Us: +263 242 882 304
+                                href="https://wa.me/263772727117"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                                <FaWhatsapp className="w-5 h-5" />
+                                Chat on WhatsApp
                             </a>
+                            <a
+                                href="https://wa.me/263774717308"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                                <FaWhatsapp className="w-5 h-5" />
+                                Chat on WhatsApp
+                            </a>
+
                         </div>
                     </motion.div>
                 </section>
