@@ -2,7 +2,7 @@
   "name": "hacia-v2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dondonbdon.github.io/hacia-v2",
+  "homepage": "https://hacia-v2.onrender.com/",
   "scripts": {
     "build": "next build",
     "export": "next export",
