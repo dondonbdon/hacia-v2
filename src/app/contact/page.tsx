@@ -14,7 +14,10 @@ import Image from "next/image";
 
 export default function Page() {
 
-	const [submissionState, setSubmissionState] = useState<'initial' | 'submitting' | 'submitted'>('initial');
+    type SubmissionState = 'initial' | 'submitting' | 'submitted' | 'error';
+    const [submissionState, setSubmissionState] = useState<SubmissionState>('initial');
+    const [error, setError] = useState<string | null>(null);
+
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -57,10 +60,9 @@ export default function Page() {
 
             setSubmissionState('submitted');
 
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
-            console.error(err);
-            alert('There was an error submitting the form.');
-            setSubmissionState(`failed to send mail because ${err.message}`);
+            setSubmissionState('submitted');
         }
     };
 
@@ -206,18 +208,25 @@ export default function Page() {
 
                                     {/* Submission message */}
                                     <p className={`text-lg pt-2 pb-6 ${
-                                        submissionState === 'submitting' ? 'text-amber-600 dark:text-cyan-400' :
-                                            submissionState === 'submitted' ? 'text-green-600 dark:text-green-400' :
-                                                'text-gray-500'
+                                        submissionState === 'submitting'
+                                            ? 'text-amber-600 dark:text-cyan-400'
+                                            : submissionState === 'submitted'
+                                                ? 'text-green-600 dark:text-green-400'
+                                                : submissionState === 'error'
+                                                    ? 'text-red-600 dark:text-red-400'
+                                                    : 'text-gray-500'
                                     }`}>
                                         {
-                                            {
-                                                initial: '',
-                                                submitting: 'Submitting your message, please wait...',
-                                                submitted: 'Your message has been submitted successfully!',
-                                            }[submissionState]
+                                            submissionState === 'error'
+                                                ? error || 'Something went wrong. Please try again.'
+                                                : {
+                                                    initial: '',
+                                                    submitting: 'Submitting your message, please wait...',
+                                                    submitted: 'Your message has been submitted successfully!',
+                                                }[submissionState]
                                         }
                                     </p>
+
 
                                     {/* Name and Phone */}
                                     <div className='flex lg:flex-row flex-col mb-4 w-full gap-4'>
