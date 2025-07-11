@@ -92,10 +92,10 @@ export default function HolidayProgramPage() {
             {/* Hero Section */}
             <section className="relative w-full h-[70vh] min-h-[500px] overflow-hidden">
                 <Image
-                    src="/media/travel-tourism-team-2025.jpg"
+                    src="/media/old-side.jpg"
                     alt="Students enjoying holiday program activities"
                     fill
-                    className="object-cover"
+                    className="object-cover blur-lg"
                     priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40"/>

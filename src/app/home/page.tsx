@@ -7,13 +7,18 @@ import Link from "next/link";
 export default function Page() {
     // Key dates data
     const keyDates = [
-        { id: 1, title: "Term 1 Begins", date: "January 15, 2025", highlight: true },
-        { id: 2, title: "Half Term Break", date: "March 3-14, 2025" },
-        { id: 3, title: "Internal Exams", date: "April 7-18, 2025" },
-        { id: 4, title: "Term 1 Ends", date: "April 25, 2025" },
-        { id: 5, title: "Holiday School", date: "July 1 - August 15, 2025", highlight: true },
-        { id: 6, title: "IGCSE Exams", date: "May 5-30, 2025" },
-        { id: 7, title: "A-Level Exams", date: "May 5 - June 13, 2025" }
+        { id: 1, title: "Term 2 Begins", date: "January 15, 2025" },
+        { id: 2, title: "Half Term Break", date: "June 10 - June 14, 2025",   },
+        { id: 3, title: "CAIE IGCSE May/Jun Exams", date: "May 5-30, 2025",  },
+        { id: 4, title: "CAIE A-Level May/Jun Exams", date: "May 5 - June 13, 2025" },
+        { id: 5, title: "Term 2 Internal Exams", date: "April 7 - April 18, 2025" },
+        { id: 6, title: "Term 2 Ends", date: "April 25, 2025" },
+        { id: 7, title: "Holiday School", date: "August 15 - August 30, 2025", highlight: true },
+        { id: 8, title: "Term 3 Begins", date: "January 15, 2025" },
+        { id: 9, title: "CAIE IGCSE Oct/Nov Exams", date: "May 5-30, 2025" },
+        { id: 10, title: "CAIE A-Level Oct/Nov Exams", date: "May 5 - June 13, 2025",   },
+        { id: 11, title: "Term 3 Internal Exams", date: "April 7 - April 18, 2025",   },
+        { id: 12, title: "Term 3 Ends", date: "January 15, 2025" },
     ];
 
     return (
@@ -197,7 +202,8 @@ export default function Page() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <button className="bg-teal-600/50 text-white backdrop-blur-md px-6 py-3 rounded-full font-semibold transition flex items-center gap-2 justify-center">
+                            <Link href="/holiday"
+                                className="bg-teal-600/50 hover:bg-teal-400/50 text-white backdrop-blur-md px-6 py-3 rounded-full font-semibold transition flex items-center gap-2 justify-center">
                                 Holiday Program
                                 <motion.svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +223,7 @@ export default function Page() {
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 17l5-5 5 5" />
                                 </motion.svg>
-                            </button>
+                            </Link>
                         </motion.div>
                     </motion.div>
 
