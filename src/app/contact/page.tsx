@@ -56,10 +56,12 @@ export default function Page() {
                 body: JSON.stringify(formData),
             });
 
-            if (!response.ok) throw new Error('Failed to submit');
+            if (!response.ok) {
+                console.error(response)
+                throw new Error('Failed to submit');
+            }
 
             setSubmissionState('submitted');
-
 
         }catch (err: unknown) {
             setSubmissionState('error');
