@@ -128,7 +128,7 @@ export default function HolidayAboutPage() {
                             have earned us a reputation for excellence.
                         </motion.p>
 
-                        <motion.div variants={item} className="grid md:grid-cols-2 gap-8 mt-12">
+                        <motion.div variants={item} className="grid md:grid-cols-3 gap-8 mt-12">
                             <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-xl shadow-sm">
                                 <h3 className="text-xl font-semibold mb-4 text-amber-600 dark:text-cyan-400">
                                     Preparation Help For
@@ -162,6 +162,16 @@ export default function HolidayAboutPage() {
                                         </li>
                                     ))}
                                 </ul>
+                            </div>
+
+                            <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-xl shadow-sm">
+                                <h3 className="text-xl font-semibold mb-4 text-amber-600 dark:text-cyan-400">
+                                    Our Facilitators & Coaches
+                                </h3>
+
+                                <p>
+                                    All teachers/coaches are not only qualified teachers but also hold the latest Cambridge-certified, subject-specific professional training, ensuring expertise and excellence in their fields.
+                                </p>
                             </div>
                         </motion.div>
                     </motion.div>
