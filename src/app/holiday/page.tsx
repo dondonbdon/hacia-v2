@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { v4 as uuidv4 } from 'uuid';
+import {FaWhatsapp} from "react-icons/fa";
 
 export default function HolidayProgramPage() {
     const [students, setStudents] = useState([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
@@ -24,29 +25,55 @@ export default function HolidayProgramPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target as HTMLFormElement);
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        const studentsData = students.map((student) => {
+            const name = formData.get(`studentName${student.id}`) as string;
+            const ageStr = formData.get(`studentAge${student.id}`) as string;
+            const grade = formData.get(`studentGrade${student.id}`) as string;
+            const type = formData.get(`studentType${student.id}`) as string;
+
+            return {
+                name,
+                age: parseInt(ageStr, 10),
+                level: grade,
+                type: type?.toUpperCase(),
+            };
+        });
+
+        const payload = {
+            name: formData.get('parentName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            students: studentsData,
+            session: formData.get('session'),
+        };
 
         try {
-            const response = await fetch('/api/holiday-signup', {
+            console.log('Payload sent to backend:', JSON.stringify(payload, null, 2));
+
+            const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/holiday-students', {
                 method: 'POST',
-                body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
             });
 
             if (response.ok) {
                 alert('Registration submitted successfully! We will contact you shortly.');
-                (e.target as HTMLFormElement).reset();
+                form.reset();
+                setStudents([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
             } else {
                 throw new Error('Submission failed');
             }
-
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {
+        } catch (error) {
             alert('There was an error submitting your form. Please try again or call us.');
         }
     };
+
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -77,7 +104,7 @@ export default function HolidayProgramPage() {
                         animate={{opacity: 1, y: 0}}
                         transition={{duration: 0.6, delay: 0.1}}
                     >
-                        August 15 - September 4, 2025 | Borrowdale, Harare
+                        August 15 - August 30, 2025 | Borrowdale, Harare
                     </motion.p>
                 </div>
             </section>
@@ -140,16 +167,7 @@ export default function HolidayProgramPage() {
                                         <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
                                         <span><strong>All exam boards</strong> - Cambridge, ZIMSEC, and other curricula supported</span>
                                     </motion.p>
-                                    <motion.p
-                                        className="flex items-start gap-3"
-                                        variants={{
-                                            hidden: { opacity: 0, y: 10 },
-                                            visible: { opacity: 1, y: 0 }
-                                        }}
-                                    >
-                                        <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                        <span><strong>Flexible pricing</strong> - $300 for internal students & $400 for external students </span>
-                                    </motion.p>
+
                                 </motion.div>
                             </div>
 
@@ -320,13 +338,27 @@ export default function HolidayProgramPage() {
                                                         <label htmlFor={`studentGrade${student.id}`} className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                                                             Level
                                                         </label>
-                                                        <input
-                                                            type="text"
+                                                        <select
                                                             id={`studentGrade${student.id}`}
                                                             name={`studentGrade${student.id}`}
                                                             required
                                                             className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
-                                                        />
+                                                        >
+                                                            <option value="">Select a level</option>
+                                                            <option value="G1">Grade 1</option>
+                                                            <option value="G2">Grade 2</option>
+                                                            <option value="G3">Grade 3</option>
+                                                            <option value="G4">Grade 4</option>
+                                                            <option value="G5">Grade 5</option>
+                                                            <option value="G6">Grade 6</option>
+                                                            <option value="G7">Grade 7</option>
+                                                            <option value="F1">Form 1</option>
+                                                            <option value="F1">Form 2</option>
+                                                            <option value="F3">Form 3</option>
+                                                            <option value="F4">Form 4</option>
+                                                            <option value="L6">Lower 6</option>
+                                                            <option value="U6">Upper 6</option>
+                                                        </select>
                                                     </div>
                                                 </div>
 
@@ -381,7 +413,7 @@ export default function HolidayProgramPage() {
                                             className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-2 focus:ring-amber-500 dark:focus:ring-cyan-400 focus:border-transparent dark:bg-slate-700"
                                         >
                                             <option value="">Select a session</option>
-                                            <option value="Aug15-Sep4">August 15 - Sep 04</option>
+                                            <option value="August-Holiday">August 15 - August 30</option>
                                         </select>
                                     </motion.div>
 
@@ -434,6 +466,10 @@ export default function HolidayProgramPage() {
                                             <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
                                             <span><strong>Uniform:</strong> Casual, respectful clothing</span>
                                         </li>
+                                        <li className="flex items-start gap-3">
+                                            <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
+                                            <span><strong>Transport Available:</strong> City Centre, Marlborough, Mt Pleasant, Westgate, Civvies Centre</span>
+                                        </li>
                                     </ul>
 
                                     <div className="pt-4 border-t border-amber-200 dark:border-cyan-800">
@@ -441,7 +477,7 @@ export default function HolidayProgramPage() {
                                             Need Help?
                                         </h4>
                                         <p className="text-slate-600 dark:text-slate-400 mb-4">
-                                            Call us at <a href="tel:+263242882304" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 242 882 304</a> or visit our <Link href="/contact" className="text-amber-600 dark:text-cyan-400 hover:underline">contact page</Link> for more information.
+                                            Call/Whatsapp us at <a href="tel:+263242882304" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 242 882 304</a> / <a href="tel:+263774717308" className="text-amber-600 dark:text-cyan-400 hover:underline">+263 774 717 308</a> or visit our <Link href="/contact" className="text-amber-600 dark:text-cyan-400 hover:underline">contact page</Link> for more information.
                                         </p>
                                         <Link
                                             href="/contact/#map"
@@ -482,11 +518,22 @@ export default function HolidayProgramPage() {
                                 Register Now
                             </Link>
                             <a
-                                href="tel:+263242882304"
-                                className="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-3 rounded-lg font-medium transition-colors"
-                            >
-                                Call Us: +263 242 882 304
+                                href="https://wa.me/263772727117"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                                <FaWhatsapp className="w-5 h-5" />
+                                Chat on WhatsApp
                             </a>
+                            <a
+                                href="https://wa.me/263774717308"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1EBE5D] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                                    <FaWhatsapp className="w-5 h-5" />
+                                Chat on WhatsApp
+                            </a>
+
                         </div>
                     </motion.div>
                 </section>

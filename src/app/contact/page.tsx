@@ -14,13 +14,10 @@ import Image from "next/image";
 
 export default function Page() {
 
-	const [submissionState, setSubmissionState] = useState<
-		'initial' | 'submitting' | 'submitted'
-	>('initial');
+	const [submissionState, setSubmissionState] = useState<'initial' | 'submitting' | 'submitted'>('initial');
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
-		title: '',
 		phone: '',
 		contents: '',
 	});
@@ -31,7 +28,6 @@ export default function Page() {
 	const isFormValid =
 		formData.name.trim() !== '' &&
 		isValidEmail(formData.email) &&
-		formData.title.trim() !== '' &&
 		formData.contents.trim() !== '';
 
 	const handleChange = (
@@ -43,20 +39,33 @@ export default function Page() {
 		}));
 	};
 
-	const onSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!isFormValid || submissionState === 'submitting') return;
-		setSubmissionState('submitting');
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!isFormValid || submissionState === 'submitting') return;
+        setSubmissionState('submitting');
 
-		// Simulate async submit
-		setTimeout(() => {
-			setSubmissionState('submitted');
-			// Optionally reset form here:
-			// setFormData({name:'', email:'', title:'', phone:'', contents:''});
-		}, 2000);
-	};
+        try {
+            const response = await fetch('https://hacia-v2-backend.fly.dev/api/v1/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-	return (
+            if (!response.ok) throw new Error('Failed to submit');
+
+            setSubmissionState('submitted');
+
+        } catch (err) {
+            console.error(err);
+            alert('There was an error submitting the form.');
+            setSubmissionState(`failed to send mail because ${err.message}`);
+        }
+    };
+
+
+    return (
 		<div>
 			<Navbar />
 			<main>

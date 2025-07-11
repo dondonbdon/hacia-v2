@@ -131,14 +131,14 @@ export default function HolidayAboutPage() {
                         <motion.div variants={item} className="grid md:grid-cols-2 gap-8 mt-12">
                             <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-xl shadow-sm">
                                 <h3 className="text-xl font-semibold mb-4 text-amber-600 dark:text-cyan-400">
-                                    Upcoming Sessions
+                                    Preparation Help For
                                 </h3>
                                 <ul className="space-y-3">
                                     {['November 2025', 'June 2026', 'November 2026'].map((session, i) => (
                                         <li key={i} className="flex items-start">
                                             <CheckCircle
                                                 className="text-amber-500 dark:text-cyan-400 mt-1 mr-2 flex-shrink-0"/>
-                                            <span>{session} Examination Preparation</span>
+                                            <span>{session} Examinations</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -217,6 +217,72 @@ export default function HolidayAboutPage() {
                                     </li>
                                 ))}
                             </ul>
+                        </motion.div>
+                    </motion.div>
+                </section>
+
+                {/* Location & Authenticity Section */}
+                <section className="py-20 px-6 md:px-12 lg:px-24 bg-white dark:bg-gray-950">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{once: true, margin: "-100px"}}
+                        variants={container}
+                        className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12"
+                    >
+                        <motion.div variants={item} className="space-y-6">
+                            <h2 className="text-3xl font-bold">
+                                Join Us At Our Premier Location
+                            </h2>
+
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-4">
+                                    <div className="mt-1 p-2 bg-amber-100 dark:bg-cyan-900 rounded-full">
+                                        <MapPinnedIcon className="text-amber-600 dark:text-cyan-400 w-5 h-5"/>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold">High Achievers Coach Educational Centre</h3>
+                                        <p className="text-gray-700 dark:text-gray-300">
+                                            801 Helvetia Drive, Borrowdale<br/>
+                                            Harare, Zimbabwe
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="mt-1 p-2 bg-amber-100 dark:bg-cyan-900 rounded-full">
+                                        <ShieldIcon className="text-amber-600 dark:text-cyan-400 w-5 h-5"/>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold">Authenticity Matters</h3>
+                                        <p className="text-gray-700 dark:text-gray-300">
+                                            Beware of copycats – HAC is the original and trusted brand. Choose the best
+                                            for your child&#39;s future.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div variants={item}>
+                            <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-xl shadow-sm h-full">
+                                <h3 className="text-2xl font-semibold mb-6 text-amber-600 dark:text-cyan-400">
+                                    Secure Your Spot Today
+                                </h3>
+
+                                <p className="text-gray-700 dark:text-gray-300 mb-6">
+                                    Limited spaces available for each session. Register now and empower your child with
+                                    the confidence and skills to succeed in their Cambridge examinations.
+                                </p>
+
+                                <a href='/holiday'>
+                                    <button
+                                        className="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg shadow transition-colors duration-300 dark:bg-cyan-600 dark:hover:bg-cyan-700"
+                                    >
+                                        Enroll Now <ArrowRight className="inline ml-2"/>
+                                    </button>
+                                </a>
+                            </div>
                         </motion.div>
                     </motion.div>
                 </section>
