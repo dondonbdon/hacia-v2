@@ -60,9 +60,15 @@ export default function Page() {
 
             setSubmissionState('submitted');
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (err) {
-            setSubmissionState('submitted');
+
+        }catch (err: unknown) {
+            setSubmissionState('error');
+
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('An unknown error occurred.');
+            }
         }
     };
 
