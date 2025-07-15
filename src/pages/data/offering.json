@@ -1,0 +1,60 @@
+{
+  "levels": [
+    {
+      "name": "Checkpoint",
+      "description": "Form 1 and Form 2",
+      "subjects": [
+        { "name": "English" },
+        { "name": "Mathematics" },
+        { "name": "Shona" },
+        { "name": "Checkpoint Science" },
+        { "name": "Geography" },
+        { "name": "Computer Science" },
+        { "name": "Life Skills" },
+        { "name": "Business Studies" },
+        { "name": "History" },
+        { "name": "French" }
+      ]
+    },
+    {
+      "name": "IGCSE",
+      "description": "Form 3 and Form 4",
+      "subjects": [
+        { "name": "English" },
+        { "name": "Literature in English" },
+        { "name": "Mathematics" },
+        { "name": "Physics" },
+        { "name": "Chemistry" },
+        { "name": "Biology" },
+        { "name": "Accounting" },
+        { "name": "Business Studies" },
+        { "name": "History" },
+        { "name": "Geography" },
+        { "name": "French" },
+        { "name": "Travel & Tourism" },
+        { "name": "Computer Science" },
+        { "name": "Life Skills" }
+      ]
+    },
+    {
+      "name": "Advanced Level",
+      "description": "Lower 6 and Upper 6",
+      "subjects": [
+        { "name": "English" },
+        { "name": "Literature in English" },
+        { "name": "Mathematics" },
+        { "name": "Physics" },
+        { "name": "Chemistry" },
+        { "name": "Biology" },
+        { "name": "Accounting" },
+        { "name": "Business Studies" },
+        { "name": "Sociology" },
+        { "name": "Geography" },
+        { "name": "History" },
+        { "name": "Biblical Studies" },
+        { "name": "Computer Science" },
+        { "name": "Economics" }
+      ]
+    }
+  ]
+}

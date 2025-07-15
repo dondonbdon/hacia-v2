@@ -1,0 +1,397 @@
+{
+  "staffMembersByDept": [
+    {
+      "deptName": "Business & Accounting",
+      "staffMembers": [
+        {
+          "name": "Chamba A",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chikanhi P",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chikanhi T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chindenga S",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chitakatira I",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Kudaro C",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Munyukwi L",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mutarani R.A.",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Zengeni M.T.",
+          "position": {
+            "name": "School Chapin"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Zinyoni P",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Zvemhere W",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "deptName": "Humanities",
+      "staffMembers": [
+        {
+          "name": "Chagumachinyi T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chikandiwa P.M.",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chingwaru J",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chitando S",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Hamudikuwanda O",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mandava P.S.",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Kamambo M.E.",
+          "position": {
+            "name": "Exams Officer"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Matumbaira C",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Muchangani P",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Nyagura S",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mafume L",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Magodoro U",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mashamba M",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Matemavi",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "deptName": "Languages & Literature",
+      "staffMembers": [
+        {
+          "name": "Chidembo K",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Goredema P",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Gwishiri G",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Kasu R",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Muvirimi L.T.",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Siyakatshana S",
+          "position": {
+            "name": "School Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "deptName": "Mathematics & ICT",
+      "staffMembers": [
+        {
+          "name": "Chigumbu W",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Jeche O",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Kajau B",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Magaya C.N.",
+          "position": {
+            "name": "Assistant Exams Officer"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Matungwana E",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mukuze S",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Musangeya K",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Parere R.A",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        }
+      ]
+    },
+    {
+      "deptName": "Science",
+      "staffMembers": [
+        {
+          "name": "Bete T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chimbo I",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Chingwaru P",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Mudimu T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Munyangamira L",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Nyamadzawo T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        },
+        {
+          "name": "Rusere T",
+          "position": {
+            "name": "Facilitator"
+          },
+          "dateJoined": "2024-01-01",
+          "imageUrl": ""
+        }
+      ]
+    }
+  ]
+}

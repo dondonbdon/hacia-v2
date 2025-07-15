@@ -10,7 +10,7 @@ export default function Footer() {
             {/* Top Section */}
             <div className="max-w-screen-xl mx-auto flex flex-col items-center text-center gap-6">
                 {/* Tagline */}
-                <p className="text-xs md:text-sm font-bold tracking-widest uppercase text-sky-600 dark:text-sky-400">
+                <p className="text-xs md:text-sm font-bold tracking-widest uppercase text-amber-600  dark:text-sky-400">
                     UPSKILL FOR A BETTER FUTURE
                 </p>
 
@@ -29,7 +29,7 @@ export default function Footer() {
                 {/* Contact Button */}
                 <Link
                     href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/contact`}
-                    className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-500 dark:hover:bg-sky-600"
+                    className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full shadow-md font-semibold transition-colors dark:bg-sky-500 dark:hover:bg-sky-600"
                 >
                     Contact Us
                 </Link>
@@ -54,16 +54,10 @@ export default function Footer() {
                 {/* Navigation Links */}
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
                     <Link
-                        href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/about`}
+                        href={`/about`}
                         className="text-slate-700 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
                     >
                         ABOUT US
-                    </Link>
-                    <Link
-                        href={`/${process.env.NEXT_PUBLIC_BASE_PATH}/login`}
-                        className="text-slate-700 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors"
-                    >
-                        LOGIN
                     </Link>
                     <Link
                         href="../holiday"

@@ -4,86 +4,16 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
+import getAllOffering from "@/pages/api/offering/allOffering";
 
 const SubjectsPage = () => {
-
-	type Subject = {
-		name: string;
-		code?: string;
-	};
-
-	type Level = {
-		name: string;
-		description: string;
-		subjects: Subject[];
-	};
-	const levels:  Level[] = [
-		{
-			name: 'Checkpoint (Form 1 - Form 2)',
-			description:
-				'Our foundational program preparing students for advanced studies with a broad curriculum.',
-			subjects: [
-				{ code: '0845', name: 'Mathematics' },
-				{ code: '0844', name: 'English' },
-				{ code: '0843', name: 'Science' },
-				{ code: '0846', name: 'Global Perspectives' },
-				{ code: '0847', name: 'ICT' },
-				{ code: '0848', name: 'French' },
-				{ code: '0849', name: 'Shona' },
-				{ code: '0850', name: 'History' },
-			],
-		},
-		{
-			name: 'IGCSE (Form 3 - Form 4)',
-			description:
-				'Internationally recognized qualifications with a wide range of subject options.',
-			subjects: [
-				{ code: '0580', name: 'Mathematics' },
-				{ code: '0500', name: 'English Language' },
-				{ code: '0620', name: 'Chemistry' },
-				{ code: '0610', name: 'Biology' },
-				{ code: '0625', name: 'Physics' },
-				{ code: '0455', name: 'Economics' },
-				{ code: '0460', name: 'Geography' },
-				{ code: '0470', name: 'History' },
-				{ code: '0410', name: 'Physical Education' },
-			],
-		},
-		{
-			name: 'A Level (Lower 6 - Upper 6)',
-			description:
-				'Advanced studies for specialization in chosen fields with Cambridge International.',
-			subjects: [
-				{ code: '9709', name: 'Mathematics' },
-				{ code: '9701', name: 'Chemistry' },
-				{ code: '9702', name: 'Physics' },
-				{ code: '9700', name: 'Biology' },
-				{ code: '9708', name: 'Economics' },
-				{ code: '9696', name: 'Geography' },
-				{ code: '9489', name: 'History' },
-				{ code: '9608', name: 'Computer Science' },
-			],
-		},
-		{
-			name: 'Sports Program',
-			description: 'Comprehensive sports development across all levels.',
-			subjects: [
-				{ name: 'Football' },
-				{ name: 'Basketball' },
-				{ name: 'Athletics' },
-				{ name: 'Swimming' },
-				{ name: 'Tennis' },
-				{ name: 'Volleyball' },
-			],
-		},
-	];
 
 	return (
 		<div className='min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col'>
 			<Navbar />
 
 			{/* Animated Hero Section */}
-			<section className='relative h-[66vh] w-full flex items-center justify-center bg-slate-900 text-white overflow-hidden'>
+			<section className='relative h-[70vh] w-full flex items-center justify-center bg-slate-900 text-white overflow-hidden'>
 				<Image
 					src='/media/img_3.png'
 					alt='Academic Subjects'
@@ -92,7 +22,7 @@ const SubjectsPage = () => {
 					priority
 					quality={90}
 				/>
-				<div className='absolute inset-0 bg-gradient-to-b from-black/40 to-black/80 z-10' />
+				<div className='absolute inset-0 bg-gradient-to-b from-white/40 to-white/20 dark:from-black/40 dark:to-black/80 z-10' />
 
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
@@ -160,7 +90,7 @@ const SubjectsPage = () => {
 				</div>
 
 				{/* Academic Levels */}
-				{levels.map((level, index) => (
+				{getAllOffering().map((level, index) => (
 					<section key={level.name} className='mb-20'>
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}
@@ -192,11 +122,7 @@ const SubjectsPage = () => {
 									<h3 className='text-xl font-semibold text-slate-800 dark:text-slate-100 mb-1'>
 										{subject.name}
 									</h3>
-									{subject.code && (
-										<p className='text-sm text-amber-600 dark:text-cyan-400 font-mono mb-2'>
-											Cambridge {subject.code}
-										</p>
-									)}
+
 									<div className='h-1 w-12 bg-amber-400 dark:bg-cyan-400 my-2'></div>
 									<p className='text-sm text-slate-500 dark:text-slate-400'>
 										{level.name.includes('Sports')
@@ -244,27 +170,6 @@ const SubjectsPage = () => {
 								className='object-cover rounded-lg'
 							/>
 						</div>
-					</div>
-				</section>
-
-
-				{/* Call to Action */}
-				<section className='text-center py-12'>
-					<h2 className='text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-4'>
-						Need More Information?
-					</h2>
-					<p className='text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6'>
-						We are ready to answer all your
-						questions about our academic programs, subject choices,
-						and the Cambridge curriculum.
-					</p>
-					<div className='flex flex-wrap justify-center gap-4'>
-						<button className='px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-full font-medium transition-colors dark:bg-cyan-600 dark:hover:bg-cyan-700'>
-							Contact Us
-						</button>
-						{/*<button className='px-8 py-3 border border-amber-600 text-amber-600 hover:bg-amber-50 rounded-full font-medium transition-colors dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-900/30'>*/}
-						{/*	Download Prospectus*/}
-						{/*</button>*/}
 					</div>
 				</section>
 			</main>

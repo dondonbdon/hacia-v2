@@ -46,7 +46,7 @@ export default function Navbar() {
 
 	const navLinkClass = (href: string) =>
 		`transition transform hover:scale-110 duration-200 ${
-			isActive(href) ? 'text-yellow-300 font-bold' : 'text-white/80'
+			isActive(href) ? 'text-yellow-300 font-bold' : 'text-black/80 dark:text-white/80'
 		}`;
 
 	return (
@@ -67,23 +67,22 @@ export default function Navbar() {
 							priority
 						/>
 						<div className="hidden sm:block">
-							<p className="text-sm md:text-base font-black">HIGH ACHIEVERS COACH</p>
-							<p className="text-xs md:text-sm">INTERNATIONAL ACADEMY</p>
+							<p className="text-sm md:text-base text-black dark:text-white">HIGH ACHIEVERS COACH</p>
+							<p className="text-xs md:text-sm text-black dark:text-white">INTERNATIONAL ACADEMY</p>
 						</div>
 					</Link>
 				</div>
 
 				{/* Desktop nav */}
-				<nav className="hidden xl:flex gap-8 text-sm font-medium bg-black/30 px-10 py-4 rounded-4xl">
+				<nav className="hidden xl:flex gap-8 text-sm font-medium text-black dark:text-white  bg-white/30 dark:bg-black/30 px-10 py-4 rounded-4xl">
 					<Link href="/about" className={navLinkClass('/about')}>ABOUT US</Link>
 					<Link href="/contact" className={navLinkClass('/contact')}>CONTACT</Link>
-					<Link href="https://highachievers.sybylcloud.com/">LOGIN</Link>
 				</nav>
 
-				{/* Admission CTA */}
+				{/* Holiday CTA */}
 				<Link
 					href="/holiday"
-					className="group hidden xl:inline-block bg-blue-900/50 text-blue-100 px-10 py-4 rounded-4xl font-semibold hover:bg-blue-100 hover:text-blue-900/50 backdrop-blur-md transition">
+					className="group hidden xl:inline-block bg-amber-500/80 dark:bg-blue-900/50 text-black dark:text-blue-100 px-10 py-4 rounded-4xl font-semibold backdrop-blur-md transition transform hover:scale-110 duration-200">
 					<span className="text-sm md:text-base">HOLIDAY PROGRAM</span>
 				</Link>
 
@@ -93,9 +92,9 @@ export default function Navbar() {
 						className="xl:hidden flex flex-col justify-center gap-1.5 w-8 h-8 cursor-pointer z-30"
 						aria-label="Toggle menu"
 						onClick={handleMenuToggle}>
-						<span className={`block h-1 w-full rounded bg-white transition-transform duration-300 origin-left ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-						<span className={`block h-1 w-full rounded bg-white transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-						<span className={`block h-1 w-full rounded bg-white transition-transform duration-300 origin-left ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+						<span className={`block h-1 w-full rounded bg-black dark:bg-white transition-transform duration-300 origin-left ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+						<span className={`block h-1 w-full rounded bg-black dark:bg-white transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+						<span className={`block h-1 w-full rounded bg-black dark:bg-white transition-transform duration-300 origin-left ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
 					</button>
 				)}
 			</header>
@@ -103,13 +102,13 @@ export default function Navbar() {
 			{/* Overlay and sliding mobile menu */}
 			{menuOpen && (
 				<>
-					<div className="fixed inset-0 bg-black/75 z-40" onClick={() => setMenuOpen(false)} />
+					<div className="fixed inset-0  dg-white/25 dark:bg-black/75 z-40" onClick={() => setMenuOpen(false)} />
 					<div className={`fixed top-0 right-0 h-full bg-black/50 backdrop-blur-sm w-full z-50 transform transition-transform duration-300 ease-in-out ${
 						menuOpen ? 'translate-x-0' : 'translate-x-full'
 					}`}>
 						{/* Close Button */}
 						<button
-							className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-blue-400"
+							className="absolute top-4 right-4 text-black dark:text-white text-3xl font-bold hover:text-blue-400"
 							onClick={() => {
 								setMenuOpen(false);
 								setTimeout(() => setHideHamburger(false), 300);
@@ -118,10 +117,9 @@ export default function Navbar() {
 						</button>
 
 						{/* Mobile Nav */}
-						<nav className="flex flex-col items-start gap-6 mt-24 ml-6 text-white text-xl">
+						<nav className="flex flex-col items-start gap-6 mt-24 ml-6 text-black dark:text-white text-xl">
 							<Link href="/about" onClick={() => setMenuOpen(false)} className={navLinkClass('/about')}>ABOUT US</Link>
 							<Link href="/contact" onClick={() => setMenuOpen(false)} className={navLinkClass('/contact')}>CONTACT</Link>
-							<Link href="https://highachievers.sybylcloud.com/" onClick={() => setMenuOpen(false)}>LOGIN</Link>
 							<Link
 								href="/holiday"
 								onClick={() => setMenuOpen(false)}

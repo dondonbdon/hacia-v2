@@ -8,6 +8,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { v4 as uuidv4 } from 'uuid';
 import {FaWhatsapp} from "react-icons/fa";
+import {ImFacebook, ImWhatsapp} from "react-icons/im";
 
 export default function HolidayProgramPage() {
     const [students, setStudents] = useState([{ id: uuidv4(), name: '', age: '', grade: '', type: '' }]);
@@ -69,7 +70,7 @@ export default function HolidayProgramPage() {
             });
 
             if (!response.ok) {
-                throw new Error('Submission failed');
+                setSubmissionState('error');
             }
 
             setSubmissionState('submitted');
@@ -109,14 +110,57 @@ export default function HolidayProgramPage() {
                     >
                         Cambridge I Believe I Can Succeed<br/>Revision & Remedial Camps
                     </motion.h1>
-                    <motion.p
-                        className="text-xl md:text-2xl text-white/90 max-w-3xl"
-                        initial={{opacity: 0, y: 20}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{duration: 0.6, delay: 0.1}}
-                    >
-                        August 15 - August 30, 2025 | Borrowdale, Harare
-                    </motion.p>
+                    <div className='flex'>
+                        <motion.p
+                            className="text-xl md:text-2xl text-white/90 max-w-3xl"
+                            initial={{opacity: 0, y: 20}}
+                            animate={{opacity: 1, y: 0}}
+                            transition={{duration: 0.6, delay: 0.1}}
+                        >
+                            August 15 - August 30, 2025 | Borrowdale, Harare
+                        </motion.p>
+                    </div>
+
+                    <div className='flex gap-1.5'>
+                        <motion.a
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            href="https://wa.me/263774717308"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center justify-center w-12 mt-5 h-12 bg-green-500 hover:bg-green-600 rounded-full transition-colors shadow-lg">
+                            <ImWhatsapp className="w-6 h-6 text-white" />
+                        </motion.a>
+
+                        <motion.a
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            href="https://wa.me/263772727117"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center w-12 mt-5 h-12 bg-green-500 hover:bg-green-600 rounded-full transition-colors shadow-lg"
+                            whileHover={{ scale: 1.05 }}>
+                            <ImWhatsapp className="w-6 h-6 text-white" />
+                        </motion.a>
+
+                        <motion.a
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            href="https://www.facebook.com/profile.php?id=100054546486266#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center justify-center w-12 mt-5 h-12 bg-blue-600 hover:bg-blue-700 rounded-full transition-colors shadow-lg"
+                        >
+                            <ImFacebook className="w-6 h-6 text-white" />
+                        </motion.a>
+                    </div>
+
+
                 </div>
             </section>
 
@@ -156,7 +200,7 @@ export default function HolidayProgramPage() {
                                         }}
                                     >
                                         <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                        <span><strong>2-week intensive sessions</strong> -  2-week long session starting August 15</span>
+                                        <span><strong>2-week interactive lessons</strong> -  2-week long session starting August 15</span>
                                     </motion.p>
                                     <motion.p
                                         className="flex items-start gap-3"
@@ -166,7 +210,7 @@ export default function HolidayProgramPage() {
                                         }}
                                     >
                                         <span className="text-amber-500 dark:text-cyan-400 mt-1">✓</span>
-                                        <span><strong>All ages welcome</strong> - Primary School to High School (Grade 1 to A-Level)</span>
+                                        <span><strong>All ages welcome</strong> - Tailor made Primary and High School programs</span>
                                     </motion.p>
                                     <motion.p
                                         className="flex items-start gap-3"
@@ -502,15 +546,15 @@ export default function HolidayProgramPage() {
                                         </li>
                                         <li className="flex items-start gap-3">
                                             <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
-                                            <span><strong>Bring:</strong> Notebooks, pens, and any current textbooks</span>
+                                            <span><strong>Subjects:</strong> Blast Master Tasks & Exercise Books</span>
                                         </li>
                                         <li className="flex items-start gap-3">
                                             <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
-                                            <span><strong>Uniform:</strong> Casual, respectful clothing</span>
+                                            <span><strong>Dress Code:</strong> Casual</span>
                                         </li>
                                         <li className="flex items-start gap-3">
                                             <span className="text-amber-600 dark:text-cyan-400 mt-1">•</span>
-                                            <span><strong>Transport Available:</strong> City Centre, Marlborough, Mt Pleasant, Westgate, Civvies Centre</span>
+                                            <span><strong>Transport Available:</strong> At a given fee, to and from the following destinations - City Centre, Marlborough, Mt Pleasant, Westgate, Civics Centre</span>
                                         </li>
                                     </ul>
 
@@ -547,7 +591,7 @@ export default function HolidayProgramPage() {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                            Limited Spaces Available
+                            Enrolment in Progress
                         </h2>
                         <p className="text-lg mb-6 max-w-2xl mx-auto">
                             Our holiday program fills up quickly. Secure your child&#39;s spot today!

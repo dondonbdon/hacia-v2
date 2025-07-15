@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
 import { motion } from 'framer-motion';
+import {FaWhatsapp} from "react-icons/fa";
 
 import {
 	MailIcon,
@@ -11,6 +12,8 @@ import {
 	PhoneIcon,
 } from 'lucide-react';
 import Image from "next/image";
+import Link from "next/link";
+
 
 export default function Page() {
 
@@ -103,7 +106,7 @@ export default function Page() {
                             </motion.div>
 
                             {/* Gradient Overlay with Depth */}
-                            <div className='absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80'></div>
+                            <div className='absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/30 dark>:from-black/60 dark:via-black/40 dark:to-black/80'></div>
 
                             {/* Subtle Pattern Overlay */}
                             <div
@@ -347,7 +350,7 @@ export default function Page() {
                                         </h1>
                                         <div className='w-full h-0.25 max-h-0.3 bg-amber-500 dark:bg-cyan-400 rounded-md' />
 
-                                        <div className='flex flex-col lg:flex-row lg:justify-between gap-8'>
+                                        <div className='flex flex-col [@media(min-width:1400px)]:flex-row lg:justify-between gap-8'>
                                             {/* Left Side */}
                                             <div className='space-y-6'>
                                                 {/* Phone */}
@@ -460,17 +463,33 @@ export default function Page() {
                                         </h1>
                                         <div className='w-full h-0.25 max-h-0.3 bg-amber-500 dark:bg-cyan-400 rounded-md' />
 
-                                        <div className='flex items-center gap-4'>
-                                            <Image
-                                                src="/media/logo_facebook.svg"
-                                                width={50}
-                                                height={50}
-                                                className="flex items-center gap-3 p-3 rounded-md hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
-                                                alt={'Facebook logo'}                                            />
+                                        {/* Horizontal layout for socials */}
+                                        <div className='flex flex-wrap gap-6'>
+                                            {/* Facebook */}
+                                            <Link
+                                                href="https://www.facebook.com/p/High-Achievers-Coach-HACEC-100054546486266/"
+                                                className="flex items-center gap-4 p-3 rounded-md hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                                            >
+                                                <Image
+                                                    src="/media/logo_facebook.svg"
+                                                    width={50}
+                                                    height={50}
+                                                    alt="Facebook logo"
+                                                />
+                                                <span className='font-medium text-gray-700 dark:text-gray-300'>Follow us on Facebook</span>
+                                            </Link>
 
-                                            <span className='font-medium text-gray-700 dark:text-gray-300'>Follow us on Facebook</span>
+                                            {/* WhatsApp */}
+                                            <Link
+                                                href="https://wa.me/263774717308"
+                                                className="flex items-center gap-4 p-3 rounded-md hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                                            >
+                                                <FaWhatsapp size={50} className="text-green-600 dark:text-green-400" />
+                                                <span className='font-medium text-gray-700 dark:text-gray-300'>Chat to us on WhatsApp</span>
+                                            </Link>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

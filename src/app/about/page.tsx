@@ -65,7 +65,7 @@ export default function AboutPage() {
 			<Navbar />
 			<main className='flex-grow space-y-32 overflow-x-hidden'>
 				{/* WHO ARE WE Section */}
-				<section className='relative w-full h-[66vh] flex items-center justify-center bg-black text-white overflow-hidden'>
+				<section className='relative w-full h-[70vh] flex items-center justify-center bg-black text-white overflow-hidden'>
 					{/* Background Image */}
 					<motion.div
 						initial={{ opacity: 0 }}
@@ -83,7 +83,7 @@ export default function AboutPage() {
 					</motion.div>
 
 					{/* Gradient Overlay */}
-					<div className='absolute inset-0 bg-gradient-to-b from-black/40 to-black/80 z-10' />
+					<div className='absolute inset-0 bg-gradient-to-b from-white/40 to-white/30 dark:bg-gradient-to-b dark:from-black/40 dark:to-black/80 z-10' />
 
 					{/* Content */}
 					<div className='relative z-20 text-center px-6 md:px-12'>
@@ -165,69 +165,92 @@ export default function AboutPage() {
 							The HACIA Vision
 						</motion.h3>
 
-						<motion.p variants={item} className='text-base md:text-lg leading-relaxed text-slate-600 dark:text-slate-300'>
+						<motion.p variants={item} className='text-base md:text-lg leading-relaxed pl-10 text-slate-600 dark:text-slate-300'>
 							The vision of HACIA started in 1998 when the founding Director introduced a successful Commercials Department at St. Faith&#39;s School in Rusape, with the support of Headmaster Mr. Moses Mukoyi. That same spirit continues to drive the institution today.
 						</motion.p>
 
 						<motion.div variants={item} className='absolute top-24 left-0 hidden md:block h-24 w-1 bg-amber-600 dark:bg-cyan-400 rounded transition-colors duration-300' />
 
-						<motion.blockquote variants={item} className='border-l-4 border-amber-600 dark:border-cyan-400 pl-4 italic text-slate-600 dark:text-slate-400 text-lg transition-colors duration-300'>
+						<motion.blockquote variants={item} className='border-l-4 border-amber-600 dark:border-cyan-400 pl-8 italic text-slate-600 dark:text-slate-400 text-lg transition-colors duration-300'>
 							&#34;Education is not preparation for life; education is life itself.&#34; – John Dewey
 						</motion.blockquote>
 					</motion.div>
 				</section>
 
 				{/* Drives Section */}
-				<section className='py-20 px-6 md:px-20 bg-slate-100 dark:bg-slate-950/50 transition-colors duration-300'>
+				<section className='py-20 px-6 md:px-20 bg-white dark:bg-slate-900 transition-colors duration-300'>
 					<motion.div
 						initial="hidden"
 						whileInView="show"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={container}
-						className='max-w-screen-xl mx-auto flex flex-col xl:flex-row gap-16 items-stretch'
+						className='max-w-screen-xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 items-center'
 					>
-						<motion.div variants={item} className='flex-1 space-y-6'>
-							<h2 className='text-amber-600 dark:text-cyan-400 text-sm font-semibold tracking-widest uppercase flex gap-3'>
+						{/* Left: Text content */}
+						<motion.div variants={item} className='space-y-6'>
+							<div className='flex items-center gap-3 text-amber-600 dark:text-cyan-400 uppercase tracking-widest text-sm font-bold transition-colors duration-300'>
 								<CheckCircle className='w-5 h-5' />
-								What Drives Us
+								Our Foundation
+							</div>
+
+							<h2 className='text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-100'>
+								Christ-Centered Education for Tomorrow&#39;s Leaders
 							</h2>
-							<h3 className='text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-100'>
-								The Heart Behind HACIA
-							</h3>
-							<div className='space-y-6 text-base md:text-lg leading-relaxed text-slate-700 dark:text-slate-300'>
+
+							<div className='space-y-6 text-slate-700 dark:text-slate-300 text-base leading-relaxed transition-colors duration-300'>
+								<div className='bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border-l-4 border-amber-500 dark:border-cyan-400'>
+									<h3 className='font-bold text-lg text-slate-800 dark:text-slate-100 mb-2'>Our Birth</h3>
+									<p>HACIA was born from the divine vision of Dr. Tapera Chikandiwa, a man of God committed to raising students in the likeness of Christ. Inspired by Luke 2:52: <span className='italic'>&#34;And Jesus increased in wisdom and stature, and in favor with God and man.&#34;</span></p>
+								</div>
+
+								<div className='bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border-l-4 border-amber-500 dark:border-cyan-400'>
+									<h3 className='font-bold text-lg text-slate-800 dark:text-slate-100 mb-2'>Our Compass</h3>
+									<p>Guided by Proverbs 22:6: <span className='italic'>&#34;Train up a child in the way he should go, and when he is old he will not depart from it,&#34;</span> we provide exceptional education within a Christ-centered framework that shapes character as much as intellect.</p>
+								</div>
+
+								<div className='bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border-l-4 border-amber-500 dark:border-cyan-400'>
+									<h3 className='font-bold text-lg text-slate-800 dark:text-slate-100 mb-2'>Our Promise</h3>
+									<p>We commit to holistic development that fosters both <span className='font-semibold'>academic excellence</span> and <span className='font-semibold'>spiritual growth</span>, building foundations for lifelong success through Christ who strengthens us.</p>
+								</div>
+							</div>
+
+							<motion.div
+								variants={container}
+								className='flex flex-wrap gap-4 pt-4'
+							>
 								{[
-									{
-										title: 'Our Birth',
-										desc: `HACIA was born of a vision by a godly man, Dr. Tapera Chikandiwa, who was motivated to nurture students in the example of Jesus Christ: "And Jesus increased in wisdom and in stature and in favour with God and man."`,
-									},
-								].map(({ title, desc }) => (
+									'Biblical Foundation',
+									'Character Development',
+									'Academic Rigor',
+									'Servant Leadership',
+									'Kingdom Mindset'
+								].map((point, idx) => (
 									<motion.div
-										key={title}
+										key={idx}
 										variants={item}
-										className='flex items-start gap-4'
+										className='flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-800 rounded-full text-sm font-medium shadow-sm dark:bg-cyan-900 dark:text-cyan-300 transition-colors duration-300 hover:scale-105'
 									>
-										<CheckCircle2 className='mt-1 text-amber-600 dark:text-cyan-400 w-6 h-6 flex-shrink-0 transition-colors duration-300' />
-										<div>
-											<h4 className='font-semibold text-slate-800 dark:text-slate-100 mb-1'>
-												{title}
-											</h4>
-											<p>{desc}</p>
-										</div>
+										<CheckCircle2 className='w-4 h-4' />
+										{point}
 									</motion.div>
 								))}
-							</div>
+							</motion.div>
 						</motion.div>
 
-						<motion.div variants={item} className='w-full xl:w-[600px] mx-auto xl:mx-0'>
-							<div className='relative rounded-xl overflow-hidden shadow-lg w-full h-full border-4 border-amber-500/20 dark:border-cyan-400/20 transition-colors duration-300 hover:scale-[1.02] transition-transform duration-300'>
+						{/* Right: Image */}
+						<motion.div variants={item} className='w-full max-w-2xl mx-auto xl:mx-0'>
+							<div className='w-full border-4 border-amber-500/20 dark:border-cyan-400/20 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300 shadow-lg'>
 								<Image
 									src='/media/squad.jpg'
-									alt='What drives HACIA'
+									alt='HACIA students learning with purpose'
 									width={800}
 									height={600}
-									className='rounded-xl w-full h-full object-cover shadow-md'
+									className='w-full h-auto object-cover'
 									priority
 								/>
+								<div className='bg-amber-500/20 dark:bg-slate-800/80 p-4 text-center'>
+									<p className=' font-medium italic'>&#34;With Christ, all things are possible!&#34; - Matthew 19:26</p>
+								</div>
 							</div>
 						</motion.div>
 					</motion.div>
@@ -244,7 +267,7 @@ export default function AboutPage() {
 					>
 						{/* Left: Image */}
 						<motion.div variants={item} className='hidden xl:block w-full max-w-2xl xl:mx-0'>
-							<div className='w-full border-4 border-amber-500/20 dark:border-cyan-400/20 rounded-xl overflow-hidden transition-colors duration-300 hover:scale-[1.02] transition-transform duration-300'>
+							<div className='w-full border-4 border-amber-500/20 dark:border-cyan-400/20 rounded-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300'>
 								<Image
 									src='/media/IMG_6974.jpg'
 									alt='HACIA and staff'
@@ -357,23 +380,43 @@ export default function AboutPage() {
 
 						<motion.div
 							variants={container}
-							className='grid sm:grid-cols-2 md:grid-cols-4 gap-10'
+							className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-10'
 						>
 							{[
 								{
-									name: 'Dr. Chikandiwa',
+									name: 'Dr. T Chikandiwa',
 									role: 'Director of Studies',
 									src: '/media/dr_tapera_picture.jpg',
 								},
 								{
-									name: 'Mrs. P Chikandiwa',
-									role: 'Director of Studies',
-									src: '/media/dr_tapera_picture.jpg',
-								},
-								{
-									name: 'Mr. Magodoro',
+									name: 'Mr. U Magodoro',
 									role: 'Headmaster',
-									src: '/media/dr_tapera_picture.jpg',
+									src: '/media/mr_magodoro.jpg',
+								},
+								{
+									name: '-',
+									role: 'Vice Headmaster',
+									src: '#',
+								},
+								{
+									name: 'Mr. E Kamambo',
+									role: 'Examinations Officer',
+									src: '#',
+								},
+								{
+									name: 'Mr. M Zengeni',
+									role: 'School Chaplin',
+									src: '#',
+								},
+								{
+									name: 'Mrs. Siyakatshana',
+									role: 'School Counsellor',
+									src: '#',
+								},
+								{
+									name: 'Mrs. Chindenga',
+									role: 'Sports Director',
+									src: '#',
 								},
 
 							].map((person, i) => (
@@ -383,7 +426,7 @@ export default function AboutPage() {
 									whileHover={{ y: -5 }}
 									className='rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-slate-800'
 								>
-									<div className='relative w-48 h-48 mx-auto rounded-full border-4 border-amber-400 dark:border-cyan-400 p-1'>
+									<div className='relative w-36 h-36 mx-auto rounded-full border-4 border-amber-400 dark:border-cyan-400 p-1'>
 										<div className='w-full h-full rounded-full overflow-hidden'>
 											<Image
 												src={person.src}
@@ -409,7 +452,7 @@ export default function AboutPage() {
 				</section>
 
 				{/* Staff Section */}
-				<section className='py-20 px-6 md:px-20 bg-slate-100 dark:bg-slate-950/50 transition-colors duration-300'>
+				<section id='staff' className='py-20 px-6 md:px-20 bg-slate-100 dark:bg-slate-950/50 transition-colors duration-300'>
 					<motion.div
 						initial="hidden"
 						whileInView="show"
@@ -419,7 +462,7 @@ export default function AboutPage() {
 					>
 						<motion.div variants={item} className='border-4 border-amber-500/20 dark:border-cyan-400/20 rounded-xl overflow-hidden transition-colors duration-300 hover:scale-[1.01]'>
 							<Image
-								src='/media/achiever_family.jpeg'
+								src='/media/hacia-staff.jpeg'
 								alt='Staff group photo'
 								width={800}
 								height={600}
@@ -453,7 +496,7 @@ export default function AboutPage() {
 									href='/about/our-staff'
 									className='inline-block bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400 active:scale-95 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-400'
 								>
-									Our Entire Staff
+									Our Staff
 								</Link>
 							</motion.div>
 						</motion.div>
@@ -461,7 +504,7 @@ export default function AboutPage() {
 				</section>
 
 				{/* Offering Subjects Section */}
-				<section className='py-20 px-6 md:px-20 bg-white dark:bg-slate-900 transition-colors duration-300'>
+				<section id='offering' className='py-20 px-6 md:px-20 bg-white dark:bg-slate-900 transition-colors duration-300'>
 					<motion.div
 						initial="hidden"
 						whileInView="show"
@@ -488,7 +531,7 @@ export default function AboutPage() {
 								href='/about/offering'
 								className='inline-block bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400 active:scale-95 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-400'
 							>
-								Show Full Offering
+								Our Full Offering
 							</Link>
 						</motion.div>
 
@@ -514,7 +557,7 @@ export default function AboutPage() {
 														{description}
 													</p>
 													<Link
-														href={`/about/offering/${slug}`}
+														href={`/about/#offering`}
 														className='mt-4 inline-flex items-center text-amber-600 hover:text-amber-800 font-semibold transition dark:text-cyan-400 dark:hover:text-cyan-300'
 													>
 														Learn More
