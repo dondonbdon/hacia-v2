@@ -1,9 +1,9 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import {getAllStaff} from "@/pages/api/staff/allStaff";
-
+import { getAllStaff } from '@/pages/api/staff/allStaff';
+import { User } from "lucide-react";
 
 interface Position {
     name: string;
@@ -29,6 +29,7 @@ export default function StaffMemberGrid() {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [imageError, setImageError] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         try {
@@ -50,8 +51,7 @@ export default function StaffMemberGrid() {
     if (loading) {
         return (
             <div className='flex justify-center items-center h-64'>
-                <div
-                    className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600 dark:border-cyan-400'></div>
+                <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600 dark:border-cyan-400'></div>
             </div>
         );
     }
@@ -70,51 +70,58 @@ export default function StaffMemberGrid() {
     }
 
     return (
-        <div className='space-y-16'>
-            {depts.staffMembersByDept.map((department) => (
-                <div key={department.deptName} className='mb-12'>
-                    {/* Department Header */}
-                    <div className='mb-8 pb-4 border-b border-amber-200 dark:border-cyan-800'>
-                        <h2 className='text-2xl md:text-3xl font-bold text-amber-600 dark:text-cyan-400 text-center'>
-                            {department.deptName} Department
-                        </h2>
-                    </div>
+        <section className="py-20 px-6 md:px-20  transition-colors duration-300">
+            <div className="max-w-screen-2xl mx-auto">
+                {depts.staffMembersByDept.map((department) => (
+                    <div key={department.deptName} className="mb-16">
+                        {/* Department Header */}
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold mb-4 text-slate-800 dark:text-slate-100">
+                                {department.deptName} Department
+                            </h2>
+                        </div>
 
-                    {/* Staff Members Grid */}
-                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12'>
-                        {department.staffMembers.map((staffMember) => (
-                            <div
-                                key={`${department.deptName}-${staffMember.name}`}
-                                className='flex flex-col items-center text-center'>
-                                {/* Circular Staff Image */}
-                                <div
-                                    className='relative w-48 h-48 mb-6 rounded-full overflow-hidden border-4 border-amber-500/20 dark:border-cyan-400/20 shadow-lg'>
-                                    <Image
-                                        src={staffMember.imageUrl || '/fallback.jpg'}
-                                        alt={staffMember.name}
-                                        fill
-                                        className='object-cover'
-                                        sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw'
-                                    />
-                                </div>
+                        {/* Staff Members Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10 w-full">
+                            {department.staffMembers.map((staffMember, idx) => (
+                                <div key={`${department.deptName}-${staffMember.name}-${idx}`}
+                                    className="rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-slate-800">
+                                    {/* Image Container with 4:5 aspect ratio */}
+                                    <div className="relative w-full max-w-xs mx-auto border border-amber-400/50 dark:border-cyan-400/40 rounded-xl overflow-hidden aspect-[4/5] mb-6 flex items-center justify-center bg-slate-100 dark:bg-slate-700">
+                                        {!imageError[staffMember.name] ? (
+                                            <Image
+                                                src={staffMember.imageUrl}
+                                                alt={staffMember.name}
+                                                fill
+                                                className="object-cover transition-opacity duration-200"
+                                                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                                                onError={() => {
+                                                    setImageError((prev) => ({ ...prev, [staffMember.name]: true }));
+                                                }}
+                                            />
+                                        ) : (
+                                            <User className="w-16 h-16 text-slate-400 dark:text-slate-500" />
+                                        )}
+                                    </div>
 
-                                {/* Staff Info */}
-                                <div className='text-center'>
-                                    <h3 className='text-xl font-semibold text-slate-800 dark:text-slate-100 mb-1'>
-                                        {staffMember.name}
-                                    </h3>
-                                    <p className='text-sm text-slate-600 dark:text-slate-300 mb-1'>
-                                        {staffMember.position.name}
-                                    </p>
-                                    <p className='text-xs text-amber-600 dark:text-cyan-400'>
-                                        Since {getYearFromDate(staffMember.dateJoined)}
-                                    </p>
+                                    {/* Staff Info */}
+                                    <div className="text-center">
+                                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+                                            {staffMember.name}
+                                        </h3>
+                                        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                            {staffMember.position.name}
+                                        </p>
+                                        <p className="mt-2 text-xs text-amber-600 dark:text-cyan-400">
+                                            Since {getYearFromDate(staffMember.dateJoined)}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </section>
     );
 }

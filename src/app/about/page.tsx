@@ -359,90 +359,92 @@ export default function AboutPage() {
 				</section>
 
 				{/* Directors & Staff Section */}
-				<section className='py-20 px-6 md:px-20 bg-white dark:bg-slate-900 transition-colors duration-300'>
+				<section className="py-20 px-6 md:px-20 bg-white dark:bg-slate-900 transition-colors duration-300">
 					<motion.div
 						initial="hidden"
 						whileInView="show"
 						viewport={{ once: true, margin: "-100px" }}
 						variants={container}
-						className='max-w-screen-xl mx-auto text-center'
+						className="max-w-screen-xl mx-auto text-center"
 					>
-						<motion.div variants={item} className='flex items-center justify-center gap-2 text-amber-600 dark:text-cyan-400 mb-2 transition-colors duration-300'>
-							<CheckCircle className='w-5 h-5' />
-							<h3 className='uppercase text-sm font-semibold tracking-widest'>
+						<motion.div
+							variants={item}
+							className="flex items-center justify-center gap-2 text-amber-600 dark:text-cyan-400 mb-2 transition-colors duration-300"
+						>
+							<CheckCircle className="w-5 h-5" />
+							<h3 className="uppercase text-sm font-semibold tracking-widest">
 								Our Directors & Staff
 							</h3>
 						</motion.div>
 
-						<motion.h2 variants={item} className='text-3xl font-bold mb-12 text-slate-800 dark:text-slate-100'>
+						<motion.h2
+							variants={item}
+							className="text-3xl font-bold mb-12 text-slate-800 dark:text-slate-100"
+						>
 							Meet Our Leadership Team
 						</motion.h2>
 
 						<motion.div
 							variants={container}
-							className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-10'
+							className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10"
 						>
 							{[
 								{
-									name: 'Dr. T Chikandiwa',
-									role: 'Director of Studies',
-									src: '/media/dr_tapera_picture.jpg',
+									name: "Dr. T Chikandiwa",
+									role: "Director of Studies",
+									src: "/media/StaffImages/ChikandiwaTC.jpg",
 								},
 								{
-									name: 'Mr. U Magodoro',
-									role: 'Headmaster',
-									src: '/media/mr_magodoro.jpg',
+									name: "Mr. U Magodoro",
+									role: "Headmaster",
+									src: "/media/StaffImages/Magodoro.jpg",
 								},
 								{
-									name: '-',
-									role: 'Vice Headmaster',
-									src: '#',
+									name: "Mr. P Chikanhi",
+									role: "Vice Headmaster",
+									src: "/media/StaffImages/ChikanhiP.JPG",
 								},
 								{
-									name: 'Mr. E Kamambo',
-									role: 'Examinations Officer',
-									src: '#',
+									name: "Mr. E Kamambo",
+									role: "Examinations Officer",
+									src: "/media/StaffImages/Kamambo.JPG",
 								},
 								{
-									name: 'Mr. M Zengeni',
-									role: 'School Chaplin',
-									src: '#',
+									name: "Mr. M Zengeni",
+									role: "School Chaplin",
+									src: "/media/StaffImages/Zengeni.JPG",
 								},
 								{
-									name: 'Mrs. Siyakatshana',
-									role: 'School Counsellor',
-									src: '#',
+									name: "Ms. PM Chikandiwa",
+									role: "-",
+									src: "/media/StaffImages/ChikandiwaPM.JPG",
 								},
 								{
-									name: 'Mrs. Chindenga',
-									role: 'Sports Director',
-									src: '#',
+									name: "Mr. S Chindenga",
+									role: "Sports Director",
+									src: "/media/StaffImages/Chindenga.JPG",
 								},
-
 							].map((person, i) => (
 								<motion.div
 									key={i}
 									variants={item}
 									whileHover={{ y: -5 }}
-									className='rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-slate-800'
+									className="rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 bg-white dark:bg-slate-800"
 								>
-									<div className='relative w-36 h-36 mx-auto rounded-full border-4 border-amber-400 dark:border-cyan-400 p-1'>
-										<div className='w-full h-full rounded-full overflow-hidden'>
-											<Image
-												src={person.src}
-												alt={person.name}
-												width={192}
-												height={192}
-												className='object-cover w-full h-full rounded-full'
-												unoptimized
-											/>
-										</div>
+									<div className="relative w-full max-w-xs mx-auto border border-amber-400/50 dark:border-cyan-400/40 rounded-xl overflow-hidden aspect-[4/5]">
+										<Image
+											src={person.src}
+											alt={person.name}
+											fill
+											className="object-cover"
+											unoptimized
+										/>
 									</div>
 
-									<h3 className='mt-6 text-xl font-semibold text-slate-800 dark:text-slate-100'>
+									<h3 className="mt-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
 										{person.name}
 									</h3>
-									<p className='mt-2 text-sm text-slate-600 dark:text-slate-400'>
+									<p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
 										{person.role}
 									</p>
 								</motion.div>
@@ -450,6 +452,7 @@ export default function AboutPage() {
 						</motion.div>
 					</motion.div>
 				</section>
+
 
 				{/* Staff Section */}
 				<section id='staff' className='py-20 px-6 md:px-20 bg-slate-100 dark:bg-slate-950/50 transition-colors duration-300'>

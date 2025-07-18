@@ -1,6 +1,5 @@
 'use client';
 
-
 import StaffMemberGrid from '../../components/StaffMembersGrid';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
@@ -28,7 +27,7 @@ export default function StaffPage() {
                     </h1>
                     <p className='text-lg md:text-xl text-white/90 leading-relaxed'>
                         Beyond the buildings, the heart of our school lies in the dedicated teachers and staff who
-                        support each child’s growth. They are more than educators—they’re mentors who guide, inspire,
+                        support each child&#39;s growth. They are more than educators—they&#39;re mentors who guide, inspire,
                         and prepare students for a bright future. Always learning and improving, our team brings fresh
                         ideas from around the world to the classroom, ensuring every lesson sparks curiosity and builds
                         confidence. Meet the people who make it all possible.
@@ -51,11 +50,13 @@ export default function StaffPage() {
                 </div>
             </section>
 
-            <main className='max-w-7xl mx-auto px-6 py-16 flex-grow'>
+            <main className='w-full max-w-screen-3xl mx-auto px-6 py-16 flex-grow'>
                 <h1 className='text-4xl font-bold text-center mb-8'>
                     OUR STAFF
                 </h1>
-                <StaffMemberGrid/>
+                <div className='w-full'>
+                    <StaffMemberGrid/>
+                </div>
             </main>
             <Footer/>
         </div>

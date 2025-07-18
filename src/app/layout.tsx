@@ -10,8 +10,14 @@ const inriaSans = Inria_Sans({
 })
 
 export const metadata: Metadata = {
-    title: 'MySite',
-    description: 'A simple responsive website',
+    title: 'HACIA Official Website',
+    description: 'The new and improved website for High Achievers Coach International Academy in Zimbabwe!',
+    icons: {
+        icon: [
+            { url: '/favicon.svg', type: 'image/svg+xml' },
+            { url: '/favicon.ico', type: 'image/x-icon' },
+        ],
+    },
 }
 
 export default function RootLayout({

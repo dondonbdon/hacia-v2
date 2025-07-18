@@ -9,8 +9,8 @@ export default function Page() {
     const keyDates = [
         {id: 1, title: "Term 2 Begins", date: "May 13, 2025"},
         {id: 2, title: "Half Term Break", date: "June 10 - June 14, 2025",},
-        {id: 3, title: "CAIE IGCSE May/Jun Exams", date: "May 5 - June 13, 2025",},
-        {id: 4, title: "Term 2 Internal Exams", date: "June 30 - July 11, 2025"},
+        {id: 3, title: "CAIE IGCSE & AS/A Level May/June Examinations", date: "TBC",},
+        {id: 4, title: "HACIA Internal Examinations", date: "June 30 - July 11, 2025"},
         {id: 5, title: "Term 2 Ends", date: "August 07, 2025"},
         {id: 6, title: "August Remedial Camp", date: "August 15 - August 30, 2025", highlight: true},
 
