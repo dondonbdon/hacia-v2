@@ -61,7 +61,7 @@ export default function Page() {
                 >
                     {/* Top Badge with Globe */}
                     <motion.div
-                        className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-sm w-fit mb-6 bg-white/20 dark:bg-black/20"
+                        className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-sm w-fit mb-6 bg-white/20 dark:bg-black/20"
                         variants={{
                             hidden: {y: 20, opacity: 0},
                             visible: {
@@ -278,13 +278,12 @@ export default function Page() {
             </motion.section>
 
             {/* Holiday Program Section */}
-            <section
-                className="py-20 bg-gradient-to-r from-amber-50 to-amber-100 dark:from-slate-800 dark:to-slate-900">
+            <section className="py-12 md:py-20 bg-gradient-to-r from-amber-50 to-amber-100 dark:from-slate-800 dark:to-slate-900">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col md:flex-row gap-10 items-center">
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center">
                         <div className="md:w-1/2">
                             <motion.h2
-                                className="text-3xl font-bold text-amber-700 dark:text-amber-400 mb-4"
+                                className="text-2xl md:text-3xl font-bold text-amber-700 dark:text-amber-400 mb-3 md:mb-4"
                                 initial={{opacity: 0, x: -20}}
                                 whileInView={{opacity: 1, x: 0}}
                                 transition={{duration: 0.5}}
@@ -293,7 +292,7 @@ export default function Page() {
                                 July-August Holiday School Program
                             </motion.h2>
                             <motion.p
-                                className="text-lg text-slate-700 dark:text-slate-300 mb-6"
+                                className="text-base md:text-lg text-slate-700 dark:text-slate-300 mb-4 md:mb-6"
                                 initial={{opacity: 0, x: -20}}
                                 whileInView={{opacity: 1, x: 0}}
                                 transition={{duration: 0.5, delay: 0.1}}
@@ -303,6 +302,7 @@ export default function Page() {
                                 Featuring Cambridge-trained teachers and personalized learning plans.
                             </motion.p>
                             <motion.div
+                                className="mb-4 md:mb-0"
                                 initial={{opacity: 0, x: -20}}
                                 whileInView={{opacity: 1, x: 0}}
                                 transition={{duration: 0.5, delay: 0.2}}
@@ -317,7 +317,7 @@ export default function Page() {
                             </motion.div>
                         </div>
                         <motion.div
-                            className="md:w-1/2 relative h-64 md:h-96 rounded-xl overflow-hidden shadow-lg"
+                            className="md:w-1/2 relative h-64 md:h-96 w-full rounded-xl overflow-hidden shadow-lg"
                             initial={{opacity: 0, scale: 0.9}}
                             whileInView={{opacity: 1, scale: 1}}
                             transition={{duration: 0.5}}
