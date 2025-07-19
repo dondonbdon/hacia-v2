@@ -1,17 +1,19 @@
 import './globals.css'
-import type {Metadata} from 'next'
-import {Inria_Sans} from 'next/font/google'
+import type { Metadata } from 'next'
+import { Inria_Sans } from 'next/font/google'
+import Script from 'next/script'
 
 const inriaSans = Inria_Sans({
     subsets: ['latin'],
-    weight: ['300', '400', '700'], // choose what weights you’ll use
+    weight: ['300', '400', '700'],
     display: 'swap',
-    variable: '--font-inria', // optional for advanced usage
+    variable: '--font-inria',
 })
 
 export const metadata: Metadata = {
     title: 'HACIA Official Website',
-    description: 'The new and improved website for High Achievers Coach International Academy in Zimbabwe!',
+    description:
+        'The new and improved website for High Achievers Coach International Academy in Zimbabwe!',
     icons: {
         icon: [
             { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -27,7 +29,27 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={inriaSans.className}>
-        <body>{children}</body>
+        <head />
+        <body>
+        {/* Google Tag Script */}
+        <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-GTCPEVQVFX"
+            strategy="afterInteractive"
+        />
+        <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+                __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GTCPEVQVFX');
+            `,
+            }}
+        />
+        {children}
+        </body>
         </html>
     )
 }
